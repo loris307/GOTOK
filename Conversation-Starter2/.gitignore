@@ -1,4 +1,4 @@
 *.env
 .DS_Store
 apikey.env
-node_modules
+/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/node_modules
