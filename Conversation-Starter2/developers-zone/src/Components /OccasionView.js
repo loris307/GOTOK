@@ -21,7 +21,7 @@ const IconWrapper = ({ title, navigation, searchQuery }) => {
 };
 
 const OccasionView = ({ navigation }) => {
-  const icons = ['Social Media', 'Dating App', 'Party', 'Restaurant', 'Bar', 'Café', 'Grocery', 'Park', 'Public Transport', 'Beach', 'Gym', 'Bus Station', 'Cinema', 'Comedy Show','Concert','Elevator','Exhibition','Festival','Hair Salon','Holiday Resort','Library','Museum','School','Sport Event', 'University', 'Wedding','Wellness Center']; // Array of icons -> this determines the order of the icons
+  const icons = ['Social', 'Dating App', 'Party', 'Restaurant', 'Bar', 'Café', 'Grocery', 'Park', 'Public Transport', 'Beach', 'Gym', 'Bus Station', 'Cinema', 'Comedy Show','Concert','Elevator','Exhibition','Festival','Hair Salon','Holiday Resort','Library','Museum','School','Sport Event', 'University', 'Wedding','Wellness Center']; // Array of icons -> this determines the order of the icons
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredIcons, setFilteredIcons] = useState(icons);
 

@@ -8,7 +8,7 @@ const OccasionIcons = ({ title }) => {
     case 'Public Transport':
       imageSource = require('.././assets/Occasions/public-transport.png');
       break;
-    case 'Social Media':
+    case 'Social':
       imageSource = require('.././assets/Occasions/social-media.png');
       break;
     case 'Dating App':
