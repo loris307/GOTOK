@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		303D850629F673BB0077E220 /* GoTokApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D850529F673BB0077E220 /* GoTokApp.swift */; };
+		303D850829F673BB0077E220 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D850729F673BB0077E220 /* ContentView.swift */; };
+		303D850A29F673BE0077E220 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303D850929F673BE0077E220 /* Assets.xcassets */; };
+		303D850E29F673BE0077E220 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303D850D29F673BE0077E220 /* Preview Assets.xcassets */; };
+		303D851829F673BF0077E220 /* GoTokTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D851729F673BF0077E220 /* GoTokTests.swift */; };
+		303D852229F673BF0077E220 /* GoTokUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D852129F673BF0077E220 /* GoTokUITests.swift */; };
+		303D852429F673BF0077E220 /* GoTokUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303D852329F673BF0077E220 /* GoTokUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		303D851429F673BF0077E220 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 303D84FA29F673BB0077E220 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 303D850129F673BB0077E220;
+			remoteInfo = GoTok;
+		};
+		303D851E29F673BF0077E220 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 303D84FA29F673BB0077E220 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 303D850129F673BB0077E220;
+			remoteInfo = GoTok;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		303D850229F673BB0077E220 /* GoTok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTok.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		303D850529F673BB0077E220 /* GoTokApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTokApp.swift; sourceTree = "<group>"; };
+		303D850729F673BB0077E220 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		303D850929F673BE0077E220 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		303D850B29F673BE0077E220 /* GoTok.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoTok.entitlements; sourceTree = "<group>"; };
+		303D850D29F673BE0077E220 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		303D851329F673BF0077E220 /* GoTokTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoTokTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		303D851729F673BF0077E220 /* GoTokTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTokTests.swift; sourceTree = "<group>"; };
+		303D851D29F673BF0077E220 /* GoTokUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoTokUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		303D852129F673BF0077E220 /* GoTokUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTokUITests.swift; sourceTree = "<group>"; };
+		303D852329F673BF0077E220 /* GoTokUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTokUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		303D84FF29F673BB0077E220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D851029F673BF0077E220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D851A29F673BF0077E220 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		303D84F929F673BB0077E220 = {
+			isa = PBXGroup;
+			children = (
+				303D850429F673BB0077E220 /* GoTok */,
+				303D851629F673BF0077E220 /* GoTokTests */,
+				303D852029F673BF0077E220 /* GoTokUITests */,
+				303D850329F673BB0077E220 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		303D850329F673BB0077E220 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				303D850229F673BB0077E220 /* GoTok.app */,
+				303D851329F673BF0077E220 /* GoTokTests.xctest */,
+				303D851D29F673BF0077E220 /* GoTokUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		303D850429F673BB0077E220 /* GoTok */ = {
+			isa = PBXGroup;
+			children = (
+				303D850529F673BB0077E220 /* GoTokApp.swift */,
+				303D850729F673BB0077E220 /* ContentView.swift */,
+				303D850929F673BE0077E220 /* Assets.xcassets */,
+				303D850B29F673BE0077E220 /* GoTok.entitlements */,
+				303D850C29F673BE0077E220 /* Preview Content */,
+			);
+			path = GoTok;
+			sourceTree = "<group>";
+		};
+		303D850C29F673BE0077E220 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				303D850D29F673BE0077E220 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		303D851629F673BF0077E220 /* GoTokTests */ = {
+			isa = PBXGroup;
+			children = (
+				303D851729F673BF0077E220 /* GoTokTests.swift */,
+			);
+			path = GoTokTests;
+			sourceTree = "<group>";
+		};
+		303D852029F673BF0077E220 /* GoTokUITests */ = {
+			isa = PBXGroup;
+			children = (
+				303D852129F673BF0077E220 /* GoTokUITests.swift */,
+				303D852329F673BF0077E220 /* GoTokUITestsLaunchTests.swift */,
+			);
+			path = GoTokUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		303D850129F673BB0077E220 /* GoTok */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 303D852729F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTok" */;
+			buildPhases = (
+				303D84FE29F673BB0077E220 /* Sources */,
+				303D84FF29F673BB0077E220 /* Frameworks */,
+				303D850029F673BB0077E220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoTok;
+			productName = GoTok;
+			productReference = 303D850229F673BB0077E220 /* GoTok.app */;
+			productType = "com.apple.product-type.application";
+		};
+		303D851229F673BF0077E220 /* GoTokTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 303D852A29F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTokTests" */;
+			buildPhases = (
+				303D850F29F673BF0077E220 /* Sources */,
+				303D851029F673BF0077E220 /* Frameworks */,
+				303D851129F673BF0077E220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				303D851529F673BF0077E220 /* PBXTargetDependency */,
+			);
+			name = GoTokTests;
+			productName = GoTokTests;
+			productReference = 303D851329F673BF0077E220 /* GoTokTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		303D851C29F673BF0077E220 /* GoTokUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 303D852D29F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTokUITests" */;
+			buildPhases = (
+				303D851929F673BF0077E220 /* Sources */,
+				303D851A29F673BF0077E220 /* Frameworks */,
+				303D851B29F673BF0077E220 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				303D851F29F673BF0077E220 /* PBXTargetDependency */,
+			);
+			name = GoTokUITests;
+			productName = GoTokUITests;
+			productReference = 303D851D29F673BF0077E220 /* GoTokUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		303D84FA29F673BB0077E220 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					303D850129F673BB0077E220 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					303D851229F673BF0077E220 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 303D850129F673BB0077E220;
+					};
+					303D851C29F673BF0077E220 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 303D850129F673BB0077E220;
+					};
+				};
+			};
+			buildConfigurationList = 303D84FD29F673BB0077E220 /* Build configuration list for PBXProject "GoTok" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 303D84F929F673BB0077E220;
+			productRefGroup = 303D850329F673BB0077E220 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				303D850129F673BB0077E220 /* GoTok */,
+				303D851229F673BF0077E220 /* GoTokTests */,
+				303D851C29F673BF0077E220 /* GoTokUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		303D850029F673BB0077E220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				303D850E29F673BE0077E220 /* Preview Assets.xcassets in Resources */,
+				303D850A29F673BE0077E220 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D851129F673BF0077E220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D851B29F673BF0077E220 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		303D84FE29F673BB0077E220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				303D850829F673BB0077E220 /* ContentView.swift in Sources */,
+				303D850629F673BB0077E220 /* GoTokApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D850F29F673BF0077E220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				303D851829F673BF0077E220 /* GoTokTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		303D851929F673BF0077E220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				303D852229F673BF0077E220 /* GoTokUITests.swift in Sources */,
+				303D852429F673BF0077E220 /* GoTokUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		303D851529F673BF0077E220 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 303D850129F673BB0077E220 /* GoTok */;
+			targetProxy = 303D851429F673BF0077E220 /* PBXContainerItemProxy */;
+		};
+		303D851F29F673BF0077E220 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 303D850129F673BB0077E220 /* GoTok */;
+			targetProxy = 303D851E29F673BF0077E220 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		303D852529F673BF0077E220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		303D852629F673BF0077E220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		303D852829F673BF0077E220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GoTok/GoTok.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"GoTok/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTok";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		303D852929F673BF0077E220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GoTok/GoTok.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"GoTok/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTok";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		303D852B29F673BF0077E220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTokTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTok.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GoTok";
+			};
+			name = Debug;
+		};
+		303D852C29F673BF0077E220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTokTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoTok.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GoTok";
+			};
+			name = Release;
+		};
+		303D852E29F673BF0077E220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTokUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GoTok;
+			};
+			name = Debug;
+		};
+		303D852F29F673BF0077E220 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-20.GoTokUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GoTok;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		303D84FD29F673BB0077E220 /* Build configuration list for PBXProject "GoTok" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				303D852529F673BF0077E220 /* Debug */,
+				303D852629F673BF0077E220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		303D852729F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTok" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				303D852829F673BF0077E220 /* Debug */,
+				303D852929F673BF0077E220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		303D852A29F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTokTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				303D852B29F673BF0077E220 /* Debug */,
+				303D852C29F673BF0077E220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		303D852D29F673BF0077E220 /* Build configuration list for PBXNativeTarget "GoTokUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				303D852E29F673BF0077E220 /* Debug */,
+				303D852F29F673BF0077E220 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 303D84FA29F673BB0077E220 /* Project object */;
+}
