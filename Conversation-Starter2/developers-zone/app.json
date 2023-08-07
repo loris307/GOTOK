@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "GoTok AI",
+    "slug": "GoTok-AI",
+    "version": "1.0.2",
+    "platforms": ["ios", "android"],
+    "ios": {
+      "bundleIdentifier": "com.gotokai.app",
+      "buildNumber": "2",
+      "displayName": "GoTok AI"
+    },
+    "android": {
+      "package": "com.gotokai.app"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "08ab252c-e9cf-4f3f-a2b5-e1323a95cde2"
+      }
+    }
+  },
+  "name": "GoTok AI"
+}
