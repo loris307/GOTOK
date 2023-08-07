@@ -3,7 +3,7 @@ import { I18n } from "i18n-js";
 const i18n = new I18n({
   en: {
     //utils
-    termsOfUse: "Terms o Use",
+    termsOfUse: "Terms of Use",
     privacyPolicy: "Privacy Policy",
 
     titleOutput: "Time to talk!",
