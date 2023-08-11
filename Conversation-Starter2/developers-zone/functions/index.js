@@ -22,6 +22,8 @@ const functions = require("firebase-functions");
 const axios = require("axios");
 const admin = require("firebase-admin");
 const cors = require("cors")({origin: "https://gotok-ai.com"});
+const stripe = require("stripe")(functions.config().stripe.secret);
+
 
 admin.initializeApp();
 
@@ -124,4 +126,36 @@ exports.deleteUserByEmail = functions.https.onRequest((request, response) => {
       response.status(500).send(error);
     }
   });
+});
+
+exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated",
+        "You must be logged in to make a purchase.");
+  }
+
+  const uid = context.auth.uid;
+
+  // Here you might look up any stored Stripe customer ID you have in Firestore
+  // For this example, I'm assuming that you always create a new Stripe customer
+  const customer = await stripe.customers.create({
+    description: `Firebase UID: ${uid}`,
+  });
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 499, // e.g., 999 for $9.99
+    currency: "usd",
+    customer: customer.id,
+  });
+
+  const ephemeralKey = await stripe.ephemeralKeys.create(
+      {customer: customer.id},
+      {apiVersion: "2022-11-15"},
+  );
+
+  return {
+    paymentIntent: paymentIntent.client_secret,
+    ephemeralKey: ephemeralKey.secret,
+    customer: customer.id,
+  };
 });

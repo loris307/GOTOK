@@ -9,8 +9,12 @@ import './firebase.js';
 import { auth } from './firebase.js';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
+import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
+import { initStripe } from "@stripe/stripe-react-native";
 
-
+initStripe({
+  publishableKey: 'pk_test_51NcWqjAmn8sb0ycrVKjeLjD22QScb58tmTqI6sm8G5bIWcty51LXjor3FR5ej9M4UZHmP9GqPeWCzQv5CTsnXddy00znuKSE4t',
+});
 
 
 import { useAuthentication } from './src/Components /UserAuth/useAuthentication';
@@ -32,6 +36,8 @@ import LanguageSelectionScreen from 'developers-zone/src/Components /languageSel
 import PrivacyPolicyScreen from './src/utils/PrivacyPolicyScreen';
 import TermsOfUseTextScreen from './src/utils/TermsOfUseTextScreen';
 import UpdateRequiredScreen from './src/Components /UpdateRequired';
+
+import PremiumPurchaseScreen from './src/Components /PremiumPurchaseScreen';
 
 
 
@@ -81,7 +87,9 @@ const MainApp = () => {
         <Stack.Screen options={{headerShown: false}} name="ConversationStarterPrem" component={ConversationStarterPrem} />        
         <Stack.Screen options={{headerShown: false}} name="ConversationStarterFree" component={ConversationStarterFree} />
         <Stack.Screen options={{headerShown: false}} name="LanguageSelectionScreen" component={LanguageSelectionScreen} /> 
-       
+        
+        <Stack.Screen options={{headerShown: false}} name="PremiumPurchaseScreen" component={PremiumPurchaseScreen} />
+
       </Stack.Navigator>
     ) : (
       <Stack.Navigator>
@@ -145,7 +153,12 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {isUpdateRequired ? <UpdateRequiredStack /> : <MainApp />}
+      <StripeProvider
+        publishableKey="pk_test_51NcWqjAmn8sb0ycrVKjeLjD22QScb58tmTqI6sm8G5bIWcty51LXjor3FR5ej9M4UZHmP9GqPeWCzQv5CTsnXddy00znuKSE4t"
+        merchantIdentifier="merchant.com.gotokai"
+      >
+        {isUpdateRequired ? <UpdateRequiredStack /> : <MainApp />}
+      </StripeProvider>
     </NavigationContainer>
   );
 };
