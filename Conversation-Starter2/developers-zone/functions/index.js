@@ -27,6 +27,9 @@ const stripe = require("stripe")(functions.config().stripe.secret);
 
 admin.initializeApp();
 
+const firestore = admin.firestore();
+
+
 exports.generateConversationStarter = functions.
     https.onCall(async (data, context) => {
       const apiKey = functions.config().openai.key;
@@ -138,24 +141,41 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
 
   // Here you might look up any stored Stripe customer ID you have in Firestore
   // For this example, I'm assuming that you always create a new Stripe customer
-  const customer = await stripe.customers.create({
-    description: `Firebase UID: ${uid}`,
-  });
+  const userDoc = await firestore.collection("users").doc(uid).get();
+
+  let customerId;
+
+  if (userDoc.exists && userDoc.data().stripeCustomerId) {
+    // Use the existing Stripe customer ID if found
+    customerId = userDoc.data().stripeCustomerId;
+  } else {
+    // Otherwise, create a new Stripe customer and save to Firestore
+    const customer = await stripe.customers.create({
+      description: `Firebase UID: ${uid}`,
+    });
+
+    customerId = customer.id;
+
+    // Store the new Stripe customer ID in Firestore
+    await firestore.collection("users").doc(uid).set({
+      stripeCustomerId: customerId,
+    }, {merge: true});
+  }
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 499, // e.g., 999 for $9.99
     currency: "usd",
-    customer: customer.id,
+    customer: customerId,
   });
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
-      {customer: customer.id},
+      {customer: customerId},
       {apiVersion: "2022-11-15"},
   );
 
   return {
     paymentIntent: paymentIntent.client_secret,
     ephemeralKey: ephemeralKey.secret,
-    customer: customer.id,
+    customer: customerId,
   };
 });
