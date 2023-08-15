@@ -162,10 +162,16 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
     }, {merge: true});
   }
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: 499, // e.g., 999 for $9.99
-    currency: "usd",
+  // const paymentIntent = await stripe.paymentIntents.create({
+  //   amount: 499, // e.g., 999 for $9.99
+  //   currency: "usd",
+  //   customer: customerId,
+  // });
+
+  const subscription = await stripe.subscriptions.create({
     customer: customerId,
+    items: [{price: "price_1NcWxdAmn8sb0ycrMmm8Sh7f"}],
+    expand: ["latest_invoice.payment_intent"],
   });
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -174,7 +180,7 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
   );
 
   return {
-    paymentIntent: paymentIntent.client_secret,
+    paymentIntent: subscription.latest_invoice.payment_intent.client_secret,
     ephemeralKey: ephemeralKey.secret,
     customer: customerId,
   };
