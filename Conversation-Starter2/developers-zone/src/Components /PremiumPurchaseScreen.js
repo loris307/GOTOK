@@ -1,79 +1,99 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
-import { useAuthentication } from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/Components /UserAuth/useAuthentication.ts';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
 
 const PremiumPurchaseScreen = () => {
-    const { user } = useAuthentication();
-    const { initPaymentSheet, presentPaymentSheet } = useStripe();
-    const [paymentIntent, setPaymentIntent] = useState(null);
+    const { confirmSetupIntent, initPaymentSheet, presentPaymentSheet } = useStripe();
+    const [clientSecret, setClientSecret] = useState(null);
+    const [paymentSheetReady, setPaymentSheetReady] = useState(false);
   
+    const [isActive, setIsActive] = useState(null);
+
+
     useEffect(() => {
-      if (user) {
-        initializePaymentSheet();
-      }
-    }, [user]);
-  
-    const initializePaymentSheet = async () => {
+      fetchSetupIntent();
+      checkSubscriptionStatus();
+    }, []);
+
+    const checkSubscriptionStatus = async () => {
         const functions = getFunctions();
-        const createCheckout = httpsCallable(functions, 'createCheckoutSession');
-    
+        const checkSubscriptionStatusFunction = httpsCallable(functions, 'checkSubscriptionStatus');
+        
         try {
-            const response = await createCheckout({ userId: user.uid });
-    
-            // Ensure the function call returns the expected data
-            if (!response || !response.data) {
-                Alert.alert('Error', 'Failed to initialize checkout.');
-                return;
-            }
-    
-            const { paymentIntent: pi, ephemeralKey, customer } = response.data;
-    
-            setPaymentIntent(pi);
-    
-            const { error } = await initPaymentSheet({
-                customerId: customer,
-                customerEphemeralKeySecret: ephemeralKey,
-                paymentIntentClientSecret: pi,
-            });
-    
-            if (error) {
-                Alert.alert('Error', 'Failed to initialize payment sheet.');
-            }
-    
+            const response = await checkSubscriptionStatusFunction();
+            setIsActive(response.data.hasActiveSubscription);
         } catch (error) {
-            Alert.alert('Error', error.message || 'Failed to initialize checkout.');
+            Alert.alert('Error', 'Failed to fetch subscription status.');
         }
     };
   
-    const handlePurchase = async () => {
-      if (!paymentIntent) return;
+    const fetchSetupIntent = async () => {
+    const functions = getFunctions();
+
+      const createSetupIntentFunction = httpsCallable(functions,'createCheckoutSession');
+      try {
+        const response = await createSetupIntentFunction();
+        setClientSecret(response.data.clientSecret);
   
-      const { error } = await presentPaymentSheet({ clientSecret: paymentIntent });
+        // Initialize the PaymentSheet with the SetupIntent's client secret.
+        const { error } = await initPaymentSheet({
+          customerId: response.data.customerId,
+          customerEphemeralKeySecret: response.data.ephemeralKey,
+          setupIntentClientSecret: response.data.clientSecret,
+        });
+        if (error) {
+          Alert.alert('Error', error.message);
+        } else {
+          setPaymentSheetReady(true); // Indicate that the PaymentSheet can be presented
+        }
+      } catch (error) {
+        Alert.alert('Error', error.message || 'Failed to fetch setup intent.');
+    }
+    };
+  
+    const handlePresentPaymentSheet = async () => {
+      if (!clientSecret) return;
+  
+      const { error } = await presentPaymentSheet({ clientSecret });
   
       if (error) {
-        Alert.alert('Error', error.message || 'Payment failed.');
+        Alert.alert('Error', error.message);
       } else {
-        Alert.alert('Success', 'Your payment was successful!');
+        handleStartSubscription();
       }
-    }
+    };
+  
+    const handleStartSubscription = async () => {
+      const functions = getFunctions();
+      const startSubscriptionFunction = httpsCallable(functions,'startSubscription');
+      try {
+        // Pass the clientSecret to the backend function
+        const response = await startSubscriptionFunction({ clientSecret });
+    
+        // Use the response's status to determine success
+        if (response.data.status === "active") {
+          Alert.alert('Success', 'Your subscription was successful!');
+        } else {
+          Alert.alert('Error', 'Failed to create subscription.');
+        }
+      } catch (error) {
+        Alert.alert('Error', 'Failed to start subscription.');
+      }
+    };
   
     return (
-      <View style={styles.container}>
-        <Text>Get Premium Features!</Text>
-        <Button title="Buy Premium" onPress={handlePurchase} />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>{isActive === null ? 'Checking...' : isActive.toString()}</Text>
+
+        <Button 
+          title="Enter Payment Details" 
+          onPress={handlePresentPaymentSheet}
+          disabled={!paymentSheetReady} // Disable the button until PaymentSheet is ready
+        />
       </View>
     );
   };
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  });
   
   export default PremiumPurchaseScreen;

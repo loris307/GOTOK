@@ -139,8 +139,7 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
 
   const uid = context.auth.uid;
 
-  // Here you might look up any stored Stripe customer ID you have in Firestore
-  // For this example, I'm assuming that you always create a new Stripe customer
+  // look up any stored Stripe customer ID you have in Firestore
   const userDoc = await firestore.collection("users").doc(uid).get();
 
   let customerId;
@@ -162,16 +161,9 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
     }, {merge: true});
   }
 
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: 499, // e.g., 999 for $9.99
-  //   currency: "usd",
-  //   customer: customerId,
-  // });
-
-  const subscription = await stripe.subscriptions.create({
+  // Create a SetupIntent for the customer
+  const setupIntent = await stripe.setupIntents.create({
     customer: customerId,
-    items: [{price: "price_1NcWxdAmn8sb0ycrMmm8Sh7f"}],
-    expand: ["latest_invoice.payment_intent"],
   });
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -179,9 +171,89 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
       {apiVersion: "2022-11-15"},
   );
 
+
   return {
-    paymentIntent: subscription.latest_invoice.payment_intent.client_secret,
+    clientSecret: setupIntent.client_secret,
     ephemeralKey: ephemeralKey.secret,
     customer: customerId,
   };
 });
+
+
+exports.startSubscription = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated", "NOT LOGGED IN");
+  }
+
+  const uid = context.auth.uid;
+
+  // Retrieve the stored Stripe customer ID from Firestore
+  const userDoc = await firestore.collection("users").doc(uid).get();
+
+  if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+    throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTOMER ID");
+  }
+
+  const customerId = userDoc.data().stripeCustomerId;
+
+  // First, retrieve the SetupIntent to get the payment method ID
+  // Assuming you're sending the setupIntent's client secret as a parameter
+  const setupIntent = await stripe.setupIntents
+      .retrieve(data.clientSecret.split("_secret")[0]);
+  const paymentMethodId = setupIntent.payment_method;
+
+  // Attach the payment method to the customer
+  await stripe.paymentMethods.attach(paymentMethodId, {
+    customer: customerId,
+  });
+
+  // Set the payment method as the customer's default payment method
+  await stripe.customers.update(customerId, {
+    invoice_settings: {
+      default_payment_method: paymentMethodId,
+    },
+  });
+
+  // Create a subscription for the customer
+  const subscription = await stripe.subscriptions.create({
+    customer: customerId,
+    items: [{price: "price_1NcWxdAmn8sb0ycrMmm8Sh7f"}],
+    expand: ["latest_invoice.payment_intent"],
+  });
+
+  return {
+    subscriptionId: subscription.id,
+    status: subscription.status,
+  };
+});
+
+exports.checkSubscriptionStatus =functions.https.onCall(async (data, context)=>{
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated", "NOT LOGGED IN");
+  }
+
+  const uid = context.auth.uid;
+
+  // Retrieve the stored Stripe customer ID from Firestore
+  const userDoc = await firestore.collection("users").doc(uid).get();
+
+  if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+    throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTOMER ID");
+  }
+
+  const customerId = userDoc.data().stripeCustomerId;
+
+  // List the subscriptions for the customer
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerId,
+  });
+
+  // Check if the user has an active subscription
+  const activeSubscription = subscriptions
+      .data.some((sub) => sub.status === "active");
+
+  return {
+    hasActiveSubscription: activeSubscription,
+  };
+});
+
