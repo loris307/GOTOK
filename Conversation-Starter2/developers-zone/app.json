@@ -16,7 +16,11 @@
       "**/*"
     ],
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      ["@stripe/stripe-react-native", {
+          "merchantIdentifier": "merchant.com.gotokai",
+          "enableGooglePay": true
+      }]
     ],
     "extra": {
       "eas": {
