@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
 
 const PremiumPurchaseScreen = () => {
@@ -10,6 +11,9 @@ const PremiumPurchaseScreen = () => {
     const [paymentSheetReady, setPaymentSheetReady] = useState(false);
   
     const [isActive, setIsActive] = useState(null);
+
+    const { isPremium, setIsPremium } = useContext(UserContext);
+
 
 
     useEffect(() => {
@@ -76,6 +80,7 @@ const PremiumPurchaseScreen = () => {
         // Use the response's status to determine success
         if (response.data.status === "active") {
           Alert.alert('Success', 'Your subscription was successful!');
+          setIsPremium(true);
         } else {
           Alert.alert('Error', 'Failed to create subscription.');
         }
@@ -92,7 +97,7 @@ const PremiumPurchaseScreen = () => {
           if (response.data.status === "canceled") {
             Alert.alert('Success', 'Your subscription has been canceled!');
             // Optionally, update any frontend state to reflect subscription cancellation
-            setIsActive(false);
+            setIsPremium(false);
           } else {
             Alert.alert('Error', 'Failed to cancel the subscription.');
           }
@@ -103,7 +108,7 @@ const PremiumPurchaseScreen = () => {
   
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>{isActive === null ? 'Checking...' : isActive.toString()}</Text>
+        <Text>{isPremium === null ? 'Checking...' : isPremium.toString()}</Text>
 
         <Button 
           title="Enter Payment Details" 
