@@ -33,7 +33,7 @@ import LanguageSelectionScreen from 'developers-zone/src/Components /languageSel
 import PrivacyPolicyScreen from './src/utils/PrivacyPolicyScreen';
 import TermsOfUseTextScreen from './src/utils/TermsOfUseTextScreen';
 import UpdateRequiredScreen from './src/Components /UpdateRequired';
-
+import ManageAccount from './src/Components /ManageAccount.js';
 import PremiumPurchaseScreen from './src/Components /PremiumPurchaseScreen';
 
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
@@ -56,6 +56,7 @@ const MainApp = () => {
         <Stack.Screen options={{headerShown: false}} name="ConversationStarterFree" component={ConversationStarterFree} />
         <Stack.Screen options={{headerShown: false}} name="LanguageSelectionScreen" component={LanguageSelectionScreen} /> 
         
+        <Stack.Screen options={{headerShown: false}} name="ManageAccount" component={ManageAccount} />
         <Stack.Screen options={{headerShown: false}} name="PremiumPurchaseScreen" component={PremiumPurchaseScreen} />
 
       </Stack.Navigator>

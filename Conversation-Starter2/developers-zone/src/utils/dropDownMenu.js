@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBars, faTimes, faPlus, faGlobe, faLocationDot, faStar, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import {useAuthentication}  from 'developers-zone/src/Components /UserAuth/useAuthentication.ts';
 import { faLock } from '@fortawesome/free-solid-svg-icons'; // Import lock icon
+import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
 
 import i18n from '../../i18n.js';
 
 const Menu = ({ navigation }) => {
+  const { isPremium, setIsPremium } = useContext(UserContext);
 
   const { logout } = useAuthentication();
 
@@ -59,12 +61,30 @@ const Menu = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumPurchaseScreen')}}>
+            {!isPremium && (
+              <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumPurchaseScreen')}}>
                 <View style={styles.menuItemsContainer}>
-                    <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
-                    <Text style={styles.text}>BUY PREMIUM</Text>
+                <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
+                <Text style={styles.text}>BUY PREMIUM</Text>
                 </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
+
+            {isPremium && (
+              <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('ManageAccount')}}>
+                <View style={styles.menuItemsContainer}>
+                <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
+                <Text style={styles.text}>Manage Account</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+              {/* <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumPurchaseScreen')}}>
+                <View style={styles.menuItemsContainer}>
+                <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
+                <Text style={styles.text}>BUY PREMIUM</Text>
+                </View>
+              </TouchableOpacity>  */}
 
             <TouchableOpacity onPress={() => {toggleMenu(); logout()}}>
                 <View style={styles.menuItemsContainer}>
