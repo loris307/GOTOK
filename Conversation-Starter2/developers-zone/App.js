@@ -40,37 +40,7 @@ import UpdateRequiredScreen from './src/Components /UpdateRequired';
 import PremiumPurchaseScreen from './src/Components /PremiumPurchaseScreen';
 
 
-
-
-
-const menuItems = [
-  { label: 'OutputScreen', onPress: () => navigation.navigate('OutputScreen') },
-  { label: 'loginSignUp', onPress: () => navigation.navigate('loginSignUp') },
-  { label: 'LoginScreen', onPress: () => navigation.navigate('LoginScreen')},
-  { label: 'PremiumScreen', onPress: () => navigation.navigate('PremiumScreen') },
-  { label: 'ConversationStarterPrem', onPress: () => navigation.navigate('ConversationStarterPrem') },
-  { label: 'ConversationStarterFree', onPress: () => navigation.navigate('ConversationStarterFree') },
-  { label: 'PopUpTest', onPress: () => navigation.navigate('PopUpTest') },
-  { label: 'OccasionView', onPress: () => navigation.navigate('OccasionView') },
-  { label: 'SignUpForm', onPress: () => navigation.navigate('SignUpForm') },
-  { label: 'TermsOfUseScreen', onPress: () => navigation.navigate('TermsOfUseScreen') },
-];
-
 LogBox.ignoreAllLogs(); //Ignore logs that match the text
-
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.homebackground}>
-      
-      <MenuDev menuItems={menuItems} navigation={navigation} />
-    
-    </View>
-  );
-}
-
-
-
 
 
 const Stack = createStackNavigator();
