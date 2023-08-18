@@ -261,3 +261,41 @@ exports.checkSubscriptionStatus =functions.https.onCall(async (data, context)=>{
   };
 });
 
+exports.cancelSubscription = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated", "NOT LOGGED IN");
+  }
+
+  const uid = context.auth.uid;
+
+  // Retrieve the stored Stripe customer ID from Firestore
+  const userDoc = await firestore.collection("users").doc(uid).get();
+
+  if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+    throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTOMER ID");
+  }
+
+  const customerId = userDoc.data().stripeCustomerId;
+
+  // List the subscriptions for the customer
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerId,
+  });
+
+  // Cancel the first active subscription found (assuming one subscription)
+  const activeSubscription = subscriptions
+      .data.find((sub) => sub.status === "active");
+
+  if (!activeSubscription) {
+    throw new functions.https
+        .HttpsError("not-found", "NO ACTIVE SUBSCRIPTION FOUND");
+  }
+
+  const canceledSubscription = await stripe
+      .subscriptions.del(activeSubscription.id);
+
+  return {
+    status: canceledSubscription.status,
+  };
+});
+

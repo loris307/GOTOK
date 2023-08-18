@@ -83,6 +83,23 @@ const PremiumPurchaseScreen = () => {
         Alert.alert('Error', 'Failed to start subscription.');
       }
     };
+
+    const handleCancelSubscription = async () => {
+        const functions = getFunctions();
+        const cancelSubscriptionFunction = httpsCallable(functions, 'cancelSubscription');
+        try {
+          const response = await cancelSubscriptionFunction();
+          if (response.data.status === "canceled") {
+            Alert.alert('Success', 'Your subscription has been canceled!');
+            // Optionally, update any frontend state to reflect subscription cancellation
+            setIsActive(false);
+          } else {
+            Alert.alert('Error', 'Failed to cancel the subscription.');
+          }
+        } catch (error) {
+          Alert.alert('Error', 'Failed to communicate with the server.');
+        }
+      };
   
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -92,6 +109,11 @@ const PremiumPurchaseScreen = () => {
           title="Enter Payment Details" 
           onPress={handlePresentPaymentSheet}
           disabled={!paymentSheetReady} // Disable the button until PaymentSheet is ready
+        />
+
+        <Button 
+            title="Cancel Subscription" 
+            onPress={handleCancelSubscription}
         />
       </View>
     );
