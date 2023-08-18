@@ -164,6 +164,7 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context)=> {
   // Create a SetupIntent for the customer
   const setupIntent = await stripe.setupIntents.create({
     customer: customerId,
+    payment_method_types: ["card", "paypal"],
   });
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -186,6 +187,8 @@ exports.startSubscription = functions.https.onCall(async (data, context) => {
   }
 
   const uid = context.auth.uid;
+  const userEmail = context.auth.token.email; // <-- Get the user email
+
 
   // Retrieve the stored Stripe customer ID from Firestore
   const userDoc = await firestore.collection("users").doc(uid).get();
@@ -209,6 +212,7 @@ exports.startSubscription = functions.https.onCall(async (data, context) => {
 
   // Set the payment method as the customer's default payment method
   await stripe.customers.update(customerId, {
+    email: userEmail,
     invoice_settings: {
       default_payment_method: paymentMethodId,
     },

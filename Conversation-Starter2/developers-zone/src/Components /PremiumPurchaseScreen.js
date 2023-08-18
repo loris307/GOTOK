@@ -42,6 +42,7 @@ const PremiumPurchaseScreen = () => {
           customerId: response.data.customerId,
           customerEphemeralKeySecret: response.data.ephemeralKey,
           setupIntentClientSecret: response.data.clientSecret,
+          merchantDisplayName: 'GoTok AI',
         });
         if (error) {
           Alert.alert('Error', error.message);
