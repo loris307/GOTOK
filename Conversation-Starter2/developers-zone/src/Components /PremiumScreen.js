@@ -83,8 +83,10 @@ const PremiumScreen = ({ navigation }) => {
   
       // Use the response's status to determine success
       if (response.data.status === "active") {
-        Alert.alert('Success', 'Your subscription was successful!');
         setIsPremium(true);
+        Alert.alert('Success', 'Your subscription was successful!', [
+          { text: 'OK', onPress: () => navigation.navigate('OccasionView') }
+        ]);       
       } else {
         Alert.alert('Error', 'Failed to create subscription.');
       }
