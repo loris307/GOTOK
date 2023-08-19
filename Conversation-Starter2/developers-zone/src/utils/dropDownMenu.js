@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBars, faTimes, faPlus, faGlobe, faLocationDot, faStar, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import {useAuthentication}  from 'developers-zone/src/Components /UserAuth/useAuthentication.ts';
 import { faLock } from '@fortawesome/free-solid-svg-icons'; // Import lock icon
+import {faUser}from '@fortawesome/free-solid-svg-icons';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
 
@@ -74,7 +75,7 @@ const Menu = ({ navigation }) => {
             {isPremium && (
               <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('ManageAccount')}}>
                 <View style={styles.menuItemsContainer}>
-                <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
+                <FontAwesomeIcon color={'white'} icon={faUser} size={13} style={{marginRight: 10}}  />
                 <Text style={styles.text}>Manage Account</Text>
                 </View>
               </TouchableOpacity>

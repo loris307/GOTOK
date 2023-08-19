@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
-const ManageAccount = () => {
+const ManageAccount = ({ navigation }) => {
     const [username, setUsername] = useState('John Doe');  // Assuming the username as a placeholder
     const [email, setEmail] = useState('johndoe@example.com');
     const { isPremium, setIsPremium } = useContext(UserContext);
@@ -14,9 +14,11 @@ const ManageAccount = () => {
         try {
           const response = await cancelSubscriptionFunction();
           if (response.data.status === "canceled") {
-            Alert.alert('Success', 'Your subscription has been canceled!');
-            // Optionally, update any frontend state to reflect subscription cancellation
             setIsPremium(false);
+            Alert.alert('Success', 'Your subscription has been canceled!', [
+                { text: 'OK', onPress: () => navigation.navigate('OccasionView') }
+              ]); 
+
           } else {
             Alert.alert('Error', 'Failed to cancel the subscription.');
           }
