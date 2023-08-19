@@ -53,14 +53,15 @@ const Menu = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumScreen')}} disabled={true} >
-              <View style={styles.disabledMenuItemContainer}>
+            {!isPremium && (
+            <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumScreen')}} >
+              <View style={styles.menuItemsContainer}>
                 <FontAwesomeIcon color={'white'} icon={faStar} size={13} style={{marginRight: 10}}  />
                 <Text style={styles.disabledText}>{i18n.t("upgrade")}</Text>
-                <FontAwesomeIcon color={'white'} icon={faLock} size={13} style={{marginLeft: 10}}  />
               </View>
             </TouchableOpacity>
-
+            )}
+{/* 
             {!isPremium && (
               <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumPurchaseScreen')}}>
                 <View style={styles.menuItemsContainer}>
@@ -68,7 +69,7 @@ const Menu = ({ navigation }) => {
                 <Text style={styles.text}>BUY PREMIUM</Text>
                 </View>
               </TouchableOpacity>
-            )}
+              )} */}
 
             {isPremium && (
               <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('ManageAccount')}}>
@@ -79,12 +80,6 @@ const Menu = ({ navigation }) => {
               </TouchableOpacity>
             )}
 
-              {/* <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('PremiumPurchaseScreen')}}>
-                <View style={styles.menuItemsContainer}>
-                <FontAwesomeIcon color={'white'} icon={faGlobe} size={13} style={{marginRight: 10}}  />
-                <Text style={styles.text}>BUY PREMIUM</Text>
-                </View>
-              </TouchableOpacity>  */}
 
             <TouchableOpacity onPress={() => {toggleMenu(); logout()}}>
                 <View style={styles.menuItemsContainer}>

@@ -1,10 +1,99 @@
-import React from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { TouchableOpacity, View, Text, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../utils/header';
 import i18n from '../../i18n.js';
+import { useStripe } from '@stripe/stripe-react-native';
+import { getFunctions, httpsCallable } from 'firebase/functions';
+import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+
+
 
 const PremiumScreen = ({ navigation }) => {
+  const { confirmSetupIntent, initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [clientSecret, setClientSecret] = useState(null);
+  const [paymentSheetReady, setPaymentSheetReady] = useState(false);
+
+  const [isActive, setIsActive] = useState(null);
+
+  const { isPremium, setIsPremium } = useContext(UserContext);
+
+
+
+  useEffect(() => {
+    fetchSetupIntent();
+    checkSubscriptionStatus();
+  }, []);
+
+  const checkSubscriptionStatus = async () => {
+      const functions = getFunctions();
+      const checkSubscriptionStatusFunction = httpsCallable(functions, 'checkSubscriptionStatus');
+      
+      try {
+          const response = await checkSubscriptionStatusFunction();
+          setIsActive(response.data.hasActiveSubscription);
+      } catch (error) {
+          Alert.alert('Error', 'Failed to fetch subscription status.');
+      }
+  };
+
+  const fetchSetupIntent = async () => {
+  const functions = getFunctions();
+
+    const createSetupIntentFunction = httpsCallable(functions,'createCheckoutSession');
+    try {
+      const response = await createSetupIntentFunction();
+      setClientSecret(response.data.clientSecret);
+
+      // Initialize the PaymentSheet with the SetupIntent's client secret.
+      const { error } = await initPaymentSheet({
+        customerId: response.data.customerId,
+        customerEphemeralKeySecret: response.data.ephemeralKey,
+        setupIntentClientSecret: response.data.clientSecret,
+        merchantDisplayName: 'GoTok AI',
+      });
+      if (error) {
+        Alert.alert('Error', error.message);
+      } else {
+        setPaymentSheetReady(true); // Indicate that the PaymentSheet can be presented
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message || 'Failed to fetch setup intent.');
+  }
+  };
+
+  const handlePresentPaymentSheet = async () => {
+    if (!clientSecret) return;
+
+    const { error } = await presentPaymentSheet({ clientSecret });
+
+    if (error) {
+      Alert.alert('Error', error.message);
+    } else {
+      handleStartSubscription();
+    }
+  };
+
+  const handleStartSubscription = async () => {
+    const functions = getFunctions();
+    const startSubscriptionFunction = httpsCallable(functions,'startSubscription');
+    try {
+      // Pass the clientSecret to the backend function
+      const response = await startSubscriptionFunction({ clientSecret });
+  
+      // Use the response's status to determine success
+      if (response.data.status === "active") {
+        Alert.alert('Success', 'Your subscription was successful!');
+        setIsPremium(true);
+      } else {
+        Alert.alert('Error', 'Failed to create subscription.');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to start subscription.');
+    }
+  };
+  
+  
   const renderTextsWithIcon = () => {
     const textsWithIcon = [
       { text: i18n.t("premTextAndIcons1"), iconName: 'star' },
@@ -63,11 +152,14 @@ const PremiumScreen = ({ navigation }) => {
       </View>
 
     <View style={styles.btnContainer}>
-         <TouchableOpacity onPress={() => {navigation.navigate('ScollView')}} style={styles.buttonSub}>
+         <TouchableOpacity   
+         onPress={handlePresentPaymentSheet}
+            disabled={!paymentSheetReady} // Disable the button until PaymentSheet is ready 
+            style={styles.buttonSub}>
             <Text style={styles.buttonTextSub}>{i18n.t("subscribeBtn")}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {navigation.navigate('ScollView')}} style={styles.button}>
+        <TouchableOpacity onPress={() => {navigation.navigate('OccasionView')}} style={styles.button}>
             <Text style={styles.buttonText}>{i18n.t("backhomeBtn")}</Text>
         </TouchableOpacity>
     </View>

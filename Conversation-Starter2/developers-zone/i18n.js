@@ -15,7 +15,7 @@ const i18n = new I18n({
     newChat: "New Chat",
     language: "Language",
     occasion: "Occasion",
-    upgrade: "Upgrade to Premium (Coming Soon)",
+    upgrade: "Upgrade to Premium",
     logout: "Log Out",
 
     //LanguageSelectionScreen
@@ -94,7 +94,7 @@ const i18n = new I18n({
     newChat: "Neuer Chat",
     language: "Sprache",
     occasion: "Anlass",
-    upgrade: "Auf Premium upgraden (Bald verfügbar)",
+    upgrade: "Auf Premium upgraden",
     logout: "Ausloggen",
 
     //LanguageSelectionScreen
@@ -170,7 +170,7 @@ gr: {
   newChat: "Νέα Συνομιλία",
   language: "Γλώσσα",
   occasion: "Περίσταση",
-  upgrade: "Αναβάθμιση σε Premium (Έρχεται σύντομα)",
+  upgrade: "Αναβάθμιση σε Premium",
   logout: "Αποσύνδεση",
 
   //LanguageSelectionScreen
