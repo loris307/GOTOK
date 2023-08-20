@@ -8,6 +8,7 @@ const ManageAccount = ({ navigation }) => {
     const [email, setEmail] = useState('johndoe@example.com');
     const { isPremium, setIsPremium } = useContext(UserContext);
 
+    //User cancellation of subscription
     const handleCancelSubscription = async () => {
         const functions = getFunctions();
         const cancelSubscriptionFunction = httpsCallable(functions, 'cancelSubscription');
