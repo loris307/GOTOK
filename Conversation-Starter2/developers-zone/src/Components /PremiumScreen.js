@@ -8,7 +8,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
 
-
+//This Screen is not used -> Just has all the code for the subscription
 const PremiumScreen = ({ navigation }) => {
   const { confirmSetupIntent, initPaymentSheet, presentPaymentSheet } = useStripe();
   const [clientSecret, setClientSecret] = useState(null);
