@@ -93,10 +93,10 @@ const ManageAccount = ({ navigation }) => {
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Legal</Text>
-                <TouchableOpacity onPress={() => {/* Navigate to Terms of Service screen */}}>
+                <TouchableOpacity onPress={() => navigation.navigate('TermsOfUseTextScreen')}>
                     <Text style={styles.link}>Terms of Service</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {/* Navigate to Privacy Policy screen */}}>
+                <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
                     <Text style={styles.link}>Privacy Policy</Text>
                 </TouchableOpacity>
             </View>

@@ -55,7 +55,8 @@ const MainApp = () => {
         <Stack.Screen options={{headerShown: false}} name="ConversationStarterPrem" component={ConversationStarterPrem} />        
         <Stack.Screen options={{headerShown: false}} name="ConversationStarterFree" component={ConversationStarterFree} />
         <Stack.Screen options={{headerShown: false}} name="LanguageSelectionScreen" component={LanguageSelectionScreen} /> 
-        
+        <Stack.Screen options={{headerShown: false}} name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} />
+        <Stack.Screen options={{headerShown: false}} name="TermsOfUseTextScreen" component={TermsOfUseTextScreen} />
         <Stack.Screen options={{headerShown: false}} name="ManageAccount" component={ManageAccount} />
         <Stack.Screen options={{headerShown: false}} name="PremiumPurchaseScreen" component={PremiumPurchaseScreen} />
 
