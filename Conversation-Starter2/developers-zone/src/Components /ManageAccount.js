@@ -53,7 +53,7 @@ const ManageAccount = ({ navigation }) => {
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Subscription Details</Text>
                 <Text>Your subscription is currently: {isPremium ? 'Active' : 'Inactive'}</Text>
-                {/* Add other subscription details like renewal date, price, etc. */}
+                {/*Other subscription details like renewal date, price, etc. */}
             </View>
 
             <View style={styles.divider} />
