@@ -299,3 +299,39 @@ exports.cancelSubscription = functions.https.onCall(async (data, context) => {
   };
 });
 
+exports.getUserInvoices = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated", "NOT LOGGED IN");
+  }
+
+  const uid = context.auth.uid;
+
+  // Retrieve the stored Stripe customer ID from Firestore
+  const userDoc = await firestore.collection("users").doc(uid).get();
+
+  if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+    throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTOMER ID");
+  }
+
+  const customerId = userDoc.data().stripeCustomerId;
+
+  // List the invoices for the customer
+  const invoices = await stripe.invoices.list({
+    customer: customerId,
+    limit: 10, // Adjust based on how many invoices you want to retrieve at once
+  });
+
+  // Map the data if needed to reduce the size or format of returned invoices
+  const mappedInvoices = invoices.data.map((invoice) => ({
+    id: invoice.id,
+    amount_paid: invoice.amount_paid,
+    date: invoice.created,
+    status: invoice.status,
+    // Add any other fields you want to send to the client
+  }));
+
+  return {
+    invoices: mappedInvoices,
+  };
+});
+
