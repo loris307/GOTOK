@@ -1,11 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert,TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { Stripe } from '@stripe/stripe-react-native';
+import { useStripe } from '@stripe/stripe-react-native';
+
+
 
 const ManageAccount = ({ navigation }) => {
-    const [username, setUsername] = useState('John Doe');  // Assuming the username as a placeholder
-    const [email, setEmail] = useState('johndoe@example.com');
+  const [username, setUsername] = useState('');  // Initializing with an empty string
+  const [email, setEmail] = useState('johndoe@example.com');
     const { isPremium, setIsPremium } = useContext(UserContext);
     
     //Invoices stuff
@@ -14,6 +20,25 @@ const ManageAccount = ({ navigation }) => {
 
     //Activity Indicator
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+      // Fetch user's data from Firestore when the component mounts
+      const fetchUserData = async () => {
+          const auth = getAuth();
+          const uid = auth.currentUser?.uid;
+
+          if (uid) { // Ensure uid is available
+              const db = getFirestore();
+              const userDoc = await getDoc(doc(db, 'users', uid));
+
+              if (userDoc.exists()) {
+                  setUsername(userDoc.data().name || ''); // use the name if it exists, otherwise default to an empty string
+              }
+          }
+      }
+
+      fetchUserData();
+  }, []); 
 
     
     const fetchInvoices = async () => {
@@ -28,6 +53,42 @@ const ManageAccount = ({ navigation }) => {
         }
         setLoadingInvoices(false);
     };
+
+    const { openPaymentSetup } = useStripe();
+    console.log(openPaymentSetup);
+
+
+
+    //Update payment details
+    const handleUpdatePaymentDetails = async () => {
+      setLoading(true);
+      try {
+          // Request a Payment Method from the user using the openPaymentSetup from the useStripe hook
+          const result = await openPaymentSetup();
+  
+          if (result && result.status === 'success') {
+              // Call Firebase Function to update payment details using result.paymentMethodId
+              const functions = getFunctions();
+              const updatePaymentFunction = httpsCallable(functions, 'updatePaymentMethod');
+              const response = await updatePaymentFunction({ paymentMethodId: result.paymentMethodId });
+  
+              if (response.data.status === 'success') {
+                  Alert.alert('Success', 'Your payment method has been updated!');
+              } else {
+                  Alert.alert('Error', 'Failed to update the payment method.');
+              }
+          } else {
+              Alert.alert('Error', 'Failed to retrieve payment method.');
+          }
+      } catch (error) {
+          console.error("Error updating payment details:", error);
+          Alert.alert('Error', 'Something went wrong while updating the payment details.');
+      } finally {
+          setLoading(false);
+      }
+  };
+  
+  
     
     //User cancellation of subscription
     const handleCancelSubscription = () => {
@@ -71,7 +132,7 @@ const ManageAccount = ({ navigation }) => {
 
       return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.greeting}>Hello, {username}</Text>
+            <Text style={styles.greeting}>Hello, {username}! 👋</Text>
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Subscription Details</Text>
@@ -83,7 +144,7 @@ const ManageAccount = ({ navigation }) => {
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Manage Subscription</Text>
-                <TouchableOpacity style={styles.touchableButton} onPress={() => {/* Handle payment details update */}}>
+                <TouchableOpacity style={styles.touchableButton} onPress={handleUpdatePaymentDetails}>
                   <Text style={styles.buttonText}>Update Payment Details</Text>
                 </TouchableOpacity>
     

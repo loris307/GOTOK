@@ -335,3 +335,34 @@ exports.getUserInvoices = functions.https.onCall(async (data, context) => {
   };
 });
 
+exports.updatePaymentMethod = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError("unauthenticated", "Not logged in.");
+  }
+
+  const uid = context.auth.uid;
+  const paymentMethodId = data.paymentMethodId;
+
+  try {
+    // Fetch the stored Stripe customer ID from Firestore
+    const userDoc = await firestore.collection("users").doc(uid).get();
+    if (userDoc.exists && userDoc.data().stripeCustomerId) {
+      const customerId = userDoc.data().stripeCustomerId;
+
+      // Update the customer's default payment method in Stripe
+      await stripe.customers.update(customerId, {
+        invoice_settings: {
+          default_payment_method: paymentMethodId,
+        },
+      });
+
+      return {status: "success"};
+    } else {
+      throw new Error("Stripe customer not found.");
+    }
+  } catch (error) {
+    console.error("Error updating payment method:", error);
+    throw new functions.https.HttpsError("unknown", "Failed to update method");
+  }
+});
+
