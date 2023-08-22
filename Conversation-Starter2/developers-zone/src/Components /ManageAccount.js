@@ -11,6 +11,10 @@ const ManageAccount = ({ navigation }) => {
     //Invoices stuff
     const [invoices, setInvoices] = useState([]);
     const [loadingInvoices, setLoadingInvoices] = useState(false);
+
+    //Activity Indicator
+    const [loading, setLoading] = useState(false);
+
     
     const fetchInvoices = async () => {
         setLoadingInvoices(true);
@@ -26,24 +30,43 @@ const ManageAccount = ({ navigation }) => {
     };
     
     //User cancellation of subscription
-    const handleCancelSubscription = async () => {
-        const functions = getFunctions();
-        const cancelSubscriptionFunction = httpsCallable(functions, 'cancelSubscription');
-        try {
-          const response = await cancelSubscriptionFunction();
-          if (response.data.status === "canceled") {
-            setIsPremium(false);
-            Alert.alert('Success', 'Your subscription has been canceled!', [
-                { text: 'OK', onPress: () => navigation.navigate('OccasionView') }
-              ]); 
-
-          } else {
-            Alert.alert('Error', 'Failed to cancel the subscription.');
+    const handleCancelSubscription = () => {
+      Alert.alert(
+        "Confirmation", // title
+        "Are you really sure about that?", // message
+        [
+          {
+            text: "Cancel",
+            onPress: () => {}, // do nothing on cancel
+            style: "cancel"
+          },
+          {
+            text: "Yes, I'm sure", 
+            onPress: async () => {
+              setLoading(true);  // Start the loading spinner
+              const functions = getFunctions();
+              const cancelSubscriptionFunction = httpsCallable(functions, 'cancelSubscription');
+              try {
+                const response = await cancelSubscriptionFunction();
+                if (response.data.status === "canceled") {
+                  setIsPremium(false);
+                  Alert.alert('Success', 'Your subscription has been canceled!', [
+                      { text: 'OK', onPress: () => navigation.navigate('OccasionView') }
+                  ]); 
+                } else {
+                  Alert.alert('Error', 'Failed to cancel the subscription.');
+                }
+              } catch (error) {
+                Alert.alert('Error', 'Failed to communicate with the server.');
+              }finally {
+                setLoading(false);  // Stop the loading spinner
+              }
+            }
           }
-        } catch (error) {
-          Alert.alert('Error', 'Failed to communicate with the server.');
-        }
-      };
+        ],
+        { cancelable: true } // Allow user to dismiss the Alert by tapping outside of it
+      );
+    };
 
 
       return (
@@ -65,7 +88,11 @@ const ManageAccount = ({ navigation }) => {
                 </TouchableOpacity>
     
                 <TouchableOpacity style={styles.touchableButton} onPress={handleCancelSubscription}>
-                  <Text style={styles.buttonText}>Cancel Subscription</Text>
+                  {loading ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <Text style={styles.buttonText}>Cancel Subscription</Text>
+                  )}
                 </TouchableOpacity>
             </View>
 
