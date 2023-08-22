@@ -88,23 +88,29 @@ const ManageAccount = ({ navigation }) => {
     const handlePresentPaymentSheet = async () => {
       if (!clientSecret) return;
     
+      const functions = getFunctions();
+      const notifyBackendOfCompletionFunction = httpsCallable(functions, 'setDefaultPaymentMethod');
+    
       const { error } = await presentPaymentSheet({ clientSecret });
-
+    
       if (error) {
-          Alert.alert('Error', error.message);
+        Alert.alert('Error', error.message);
       } else {
-          try {
-              const response = await notifyBackendOfCompletion(); // Call a Firebase function
-              if (response.success) {
-                  Alert.alert('Success', 'Payment method updated successfully!');
-              } else {
-                  Alert.alert('Error', 'Failed to update default payment method. Please try again.');
-              }
-          } catch (err) {
-              Alert.alert('Error', err.message || 'Failed to notify backend.');
-          }
+        try {
+            // You don't need the customer's latest payment method ID now.
+            // The backend will take care of fetching and setting the latest payment method.
+            const response = await notifyBackendOfCompletionFunction();
+            if (response.data.success) {
+                Alert.alert('Success', 'Payment method updated successfully!');
+            } else {
+                Alert.alert('Error', 'Failed to update default payment method. Please try again.');
+            }
+        } catch (err) {
+            Alert.alert('Error', err.message || 'Failed to notify backend.');
+        }
       }
     };
+    
     
     
     

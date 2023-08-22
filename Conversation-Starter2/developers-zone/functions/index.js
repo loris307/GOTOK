@@ -336,81 +336,28 @@ exports.getUserInvoices = functions.https.onCall(async (data, context) => {
 });
 
 
-exports.createSetupIntentForUpdatingPayment = functions
-    .https.onCall(async (data, context)=> {
-      if (!context.auth) {
-        throw new functions.https.HttpsError("unauthenticated",
-            "You must be logged in to update payment details.");
-      }
-
-      const uid = context.auth.uid;
-
-      // Retrieve the stored Stripe customer ID from Firestore
-      const userDoc = await firestore.collection("users").doc(uid).get();
-
-      if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
-        throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTOMER");
-      }
-
-      const customerId = userDoc.data().stripeCustomerId;
-
-      // Create a SetupIntent for the customer
-      const setupIntent = await stripe.setupIntents.create({
-        customer: customerId,
-        payment_method_types: ["card", "paypal"],
-      });
-
-      return {
-        clientSecret: setupIntent.client_secret,
-      };
-    });
-
-exports.updateDefaultPaymentMethod = functions.https
-    .onCall(async (data, context) => {
-      if (!context.auth) {
-        throw new functions.https.HttpsError("unauthenticated", "no logged in");
-      }
-
-      const uid = context.auth.uid;
-      const paymentMethodId = data.paymentMethodId;
-
-      if (!paymentMethodId) {
-        throw new functions.https.HttpsError("invalid-arg", "No paym.methodID");
-      }
-
-      const userDoc = await firestore.collection("users").doc(uid).get();
-
-      if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
-        throw new functions.https.HttpsError("notFound", "NStripecustomerID");
-      }
-
-      const customerId = userDoc.data().stripeCustomerId;
-
-      // Update the default payment method for the customer
-      await stripe.customers.update(customerId, {
-        invoice_settings: {
-          default_payment_method: paymentMethodId,
-        },
-      });
-
-      return {success: true};
-    });
-
 exports.setDefaultPaymentMethod = functions
     .https.onCall(async (data, context) => {
       if (!context.auth) {
-        throw new functions.https.HttpsError("no auth", "Not authenticated.");
+        throw new functions.https.HttpsError("unauthenticate", "NOT LOGGED IN");
       }
-      const customerId = data.customerId;
-      if (!customerId) {
-        throw new functions.https.HttpsError("invalid", "CustomerIDrequired");
+
+      const uid = context.auth.uid;
+      const db = admin.firestore();
+      // Retrieve the stored Stripe customer ID from Firestore
+      const userDoc = await db.collection("users").doc(uid).get();
+
+      if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+        throw new functions.https.HttpsError("not-found", "NO STRIPE CUSTO ID");
       }
+
+      const customerId = userDoc.data().stripeCustomerId;
 
       try {
         // Fetch the payment methods for the given customer ID
         const paymentMethods = await stripe.paymentMethods.list({
           customer: customerId,
-          type: "card", // adjust if your using a different payment method type
+          type: "card",
         });
 
         // Sort by creation date and get the most recent
@@ -418,8 +365,9 @@ exports.setDefaultPaymentMethod = functions
         const recentPaymentMethod = paymentMethods.data[0];
 
         if (!recentPaymentMethod) {
-          throw new functions.https.HttpsError("noFound", "NPamentmethodfound");
+          throw new functions.https.HttpsError("not-found", "No payment");
         }
+
         // Set the most recent payment method as the default for the customer
         await stripe.customers.update(customerId, {
           invoice_settings: {
@@ -430,6 +378,6 @@ exports.setDefaultPaymentMethod = functions
         return {success: true, paymentMethodId: recentPaymentMethod.id};
       } catch (error) {
         console.error("Error setting default payment method:", error);
-        throw new functions.https.HttpsError("internal", "An error occurre");
+        throw new functions.https.HttpsError("internal", "An error occurred");
       }
     });
