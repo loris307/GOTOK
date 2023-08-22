@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { TouchableOpacity, View, Text, Alert } from 'react-native';
+import { TouchableOpacity, View, Text, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../utils/header';
 import i18n from '../../i18n.js';
@@ -18,6 +18,7 @@ const PremiumScreen = ({ navigation }) => {
 
   const { isPremium, setIsPremium } = useContext(UserContext);
 
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -64,8 +65,13 @@ const PremiumScreen = ({ navigation }) => {
 
   const handlePresentPaymentSheet = async () => {
     if (!clientSecret) return;
+    
+    setLoading(true); // Start the loading spinner
+
 
     const { error } = await presentPaymentSheet({ clientSecret });
+
+    //setLoading(false); // Stop the loading spinner regardless of the outcome
 
     if (error) {
       Alert.alert('Error', error.message);
@@ -80,18 +86,23 @@ const PremiumScreen = ({ navigation }) => {
     try {
       // Pass the clientSecret to the backend function
       const response = await startSubscriptionFunction({ clientSecret });
-  
+      
+       // Stop the loading spinner regardless of the outcome
+
       // Use the response's status to determine success
       if (response.data.status === "active") {
         setIsPremium(true);
         Alert.alert('Success', 'Your subscription was successful!', [
           { text: 'OK', onPress: () => navigation.navigate('OccasionView') }
-        ]);       
+        ]); 
+        setLoading(false);      
       } else {
         Alert.alert('Error', 'Failed to create subscription.');
+        setLoading(false);
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to start subscription.');
+      setLoading(false);
     }
   };
   
@@ -154,11 +165,11 @@ const PremiumScreen = ({ navigation }) => {
       </View>
 
     <View style={styles.btnContainer}>
-         <TouchableOpacity   
-         onPress={handlePresentPaymentSheet}
-            disabled={!paymentSheetReady} // Disable the button until PaymentSheet is ready 
-            style={styles.buttonSub}>
-            <Text style={styles.buttonTextSub}>{i18n.t("subscribeBtn")}</Text>
+        <TouchableOpacity   
+          onPress={handlePresentPaymentSheet}
+          disabled={!paymentSheetReady || loading} // Disable the button if PaymentSheet is not ready or if it's loading
+          style={styles.buttonSub}>
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonTextSub}>{i18n.t("subscribeBtn")}</Text>}
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {navigation.navigate('OccasionView')}} style={styles.button}>
