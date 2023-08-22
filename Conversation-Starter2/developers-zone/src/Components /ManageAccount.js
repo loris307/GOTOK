@@ -10,13 +10,18 @@ import { useStripe } from '@stripe/stripe-react-native';
 
 
 const ManageAccount = ({ navigation }) => {
-  const [username, setUsername] = useState('');  // Initializing with an empty string
-  const [email, setEmail] = useState('johndoe@example.com');
+    const [username, setUsername] = useState('');  // Initializing with an empty string
+    const [email, setEmail] = useState('johndoe@example.com');
     const { isPremium, setIsPremium } = useContext(UserContext);
     
     //Invoices stuff
     const [invoices, setInvoices] = useState([]);
     const [loadingInvoices, setLoadingInvoices] = useState(false);
+
+    //Payment stuff
+    const { confirmSetupIntent, initPaymentSheet, presentPaymentSheet } = useStripe();
+    const [clientSecret, setClientSecret] = useState(null);
+    const [paymentSheetReady, setPaymentSheetReady] = useState(false);
 
     //Activity Indicator
     const [loading, setLoading] = useState(false);
@@ -38,7 +43,7 @@ const ManageAccount = ({ navigation }) => {
       }
 
       fetchUserData();
-  }, []); 
+    }, []); 
 
     
     const fetchInvoices = async () => {
@@ -54,41 +59,56 @@ const ManageAccount = ({ navigation }) => {
         setLoadingInvoices(false);
     };
 
-    const { openPaymentSetup } = useStripe();
-    console.log(openPaymentSetup);
 
-
-
-    //Update payment details
-    const handleUpdatePaymentDetails = async () => {
-      setLoading(true);
+    //updating payment details
+    const fetchSetupIntent = async () => {
+      const functions = getFunctions();
+      const createSetupIntentFunction = httpsCallable(functions, 'createCheckoutSession');
       try {
-          // Request a Payment Method from the user using the openPaymentSetup from the useStripe hook
-          const result = await openPaymentSetup();
-  
-          if (result && result.status === 'success') {
-              // Call Firebase Function to update payment details using result.paymentMethodId
-              const functions = getFunctions();
-              const updatePaymentFunction = httpsCallable(functions, 'updatePaymentMethod');
-              const response = await updatePaymentFunction({ paymentMethodId: result.paymentMethodId });
-  
-              if (response.data.status === 'success') {
-                  Alert.alert('Success', 'Your payment method has been updated!');
-              } else {
-                  Alert.alert('Error', 'Failed to update the payment method.');
-              }
-          } else {
-              Alert.alert('Error', 'Failed to retrieve payment method.');
-          }
+        const response = await createSetupIntentFunction();
+        setClientSecret(response.data.clientSecret);
+    
+        // Initialize the PaymentSheet with the SetupIntent's client secret.
+        const { error } = await initPaymentSheet({
+          customerId: response.data.customerId,
+          customerEphemeralKeySecret: response.data.ephemeralKey,
+          setupIntentClientSecret: response.data.clientSecret,
+          merchantDisplayName: 'GoTok AI',
+        });
+        if (error) {
+          Alert.alert('Error', error.message);
+        } else {
+          setPaymentSheetReady(true); 
+        }
       } catch (error) {
-          console.error("Error updating payment details:", error);
-          Alert.alert('Error', 'Something went wrong while updating the payment details.');
-      } finally {
-          setLoading(false);
+        Alert.alert('Error', error.message || 'Failed to fetch setup intent.');
       }
-  };
-  
-  
+    };
+
+    const handlePresentPaymentSheet = async () => {
+      if (!clientSecret) return;
+    
+      const { error } = await presentPaymentSheet({ clientSecret });
+
+      if (error) {
+          Alert.alert('Error', error.message);
+      } else {
+          try {
+              const response = await notifyBackendOfCompletion(); // Call a Firebase function
+              if (response.success) {
+                  Alert.alert('Success', 'Payment method updated successfully!');
+              } else {
+                  Alert.alert('Error', 'Failed to update default payment method. Please try again.');
+              }
+          } catch (err) {
+              Alert.alert('Error', err.message || 'Failed to notify backend.');
+          }
+      }
+    };
+    
+    
+    
+
     
     //User cancellation of subscription
     const handleCancelSubscription = () => {
@@ -144,8 +164,8 @@ const ManageAccount = ({ navigation }) => {
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Manage Subscription</Text>
-                <TouchableOpacity style={styles.touchableButton} onPress={handleUpdatePaymentDetails}>
-                  <Text style={styles.buttonText}>Update Payment Details</Text>
+                <TouchableOpacity style={styles.touchableButton} onPress={paymentSheetReady ? handlePresentPaymentSheet : fetchSetupIntent}>
+                    <Text style={styles.buttonText}>Update Payment Details</Text>
                 </TouchableOpacity>
     
                 <TouchableOpacity style={styles.touchableButton} onPress={handleCancelSubscription}>
