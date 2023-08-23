@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, ActivityIndicator, Alert } from 'react-native';
 import PremiumScreenPopUp from './PremiumScreenPopUp';
 import Header from '../utils/header';
@@ -8,6 +8,8 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../../firebase.js';
 //import Clipboard from '@react-native-clipboard/clipboard';
 import * as Clipboard from 'expo-clipboard';
+import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+
 
 
 import funnyImage from 'developers-zone/src/assets/OPStyleIcons/OPFunny.png';
@@ -29,6 +31,9 @@ const OutputScreen = ({ navigation, route }) => {
   const [pass, setPass] = useState(initialPass);
   const [iconpass, setIconpass] = useState(initialIconpass);
   
+  //Premium feature
+  const { isPremium, setIsPremium } = useContext(UserContext);
+
   const functions = getFunctions(app);
 
   console.log(pass);
@@ -127,7 +132,6 @@ const OutputScreen = ({ navigation, route }) => {
   
 
 
-
     const [showPopup, setShowPopup] = useState(false);
     const [randomIndex, setRandomIndex] = useState(0);
 
@@ -151,24 +155,30 @@ const OutputScreen = ({ navigation, route }) => {
 
           {imageSource && <Image source={imageSource} style={styles.styleIconImage} />}
 
-           <Text  style={[styles.text, pass.length > 140 ? styles.longText : null]} onPress={copyToClipboard}>
-             {pass} 
-          </Text>  
-
+         {/* <View style={[styles.container, containerStyle]}>  */}
+          <Text 
+            style={[
+            isPremium ? (pass.length > 140 ? styles.longText : styles.text) : styles.text
+            ]}
+            onPress={copyToClipboard}
+          >
+            {pass} 
+          </Text>
+         {/* </View>  */}
         
 
-          <View style={styles.adviceContainer}>
-            <Text style={[styles.heading, pass.length > 130 && pass.length < 140 ? styles.adivceLong : null]}>
-            {i18n.t("expertAdvice")} 
-           </Text>
+          {isPremium && (
+            <View style={styles.adviceContainer}>
+              <Text style={[styles.heading, pass.length > 130 && pass.length < 140 ? styles.adivceLong : null]}>
+                {i18n.t("expertAdvice")} 
+              </Text>
 
-            <Text style={styles.advice} >
-                 {advice[randomIndex]} 
-                 {/* "Controversial or sensitive topics usually aren't beneficial. Political, ideological, and partisan matters have no place in initial encounters or first dates, unless you're currently in a relevant setting.",  */}
+              <Text style={styles.advice}>
+                {advice[randomIndex]} 
+              </Text>
+            </View>
+          )}
 
-            </Text>
-          </View>
-        
           <View style={styles.buttoncontainer} >
               
               
@@ -179,7 +189,7 @@ const OutputScreen = ({ navigation, route }) => {
             <ActivityIndicator size="small" color="white" /> // Show loading spinner if loading
             ) : (
               <Text style={styles.btnTextRegenerate}> {i18n.t("renegerate")}</Text>// Show button text if not loading
-        )}
+            )}
               
               
             </TouchableOpacity> 
@@ -206,6 +216,7 @@ const OutputScreen = ({ navigation, route }) => {
       flex: 1,
       backgroundColor: '#fff',
     },
+
     
     mainContainer: {
         flex: 1,
