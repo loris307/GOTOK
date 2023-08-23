@@ -30,6 +30,113 @@ admin.initializeApp();
 const firestore = admin.firestore();
 
 
+// exports.generateConversationStarter = functions.
+//     https.onCall(async (data, context) => {
+//       const apiKey = functions.config().openai.key;
+//       const apiUrl = "https://api.openai.com/v1/chat/completions";
+
+//       const uid = context.auth.uid; // get user id from context
+
+//       // Verify premium status
+//       const isPremium = await hasActiveSubscription(uid);
+
+//       const userLimit = isPremium ? 25 : 5;
+
+//       // Transaction to get user data and update apiCallCount atomically
+//       await admin.firestore().runTransaction(async (transaction) => {
+//         const userRef = admin.firestore().collection("users").doc(uid);
+//         const userDoc = await transaction.get(userRef);
+
+//         if (!userDoc.exists) {
+//          throw new functions.https.HttpsError("not-found", "User not found");
+//         }
+
+//         const userData = userDoc.data();
+//         // const isPremium = data.isPremium || false;
+
+//         // userLimit = isPremium ? 25 : 5;
+
+//         if (userData.apiCallCount >= userLimit &&
+//             sameDay(userData.lastApiCall.toDate(), new Date())) {
+//           throw new functions.https.HttpsError(
+//              "exhausted", `Reached your daily limit of ${userLimit} prompts`,
+//           );
+//         }
+
+//         if (!sameDay(userData.lastApiCall.toDate(), new Date())) {
+//           userData.apiCallCount = 0;
+//         }
+
+//         transaction.update(userRef, {
+//           apiCallCount: userData.apiCallCount + 1,
+//           lastApiCall: new Date(),
+//         });
+//       });
+
+//       const response = await axios.post(apiUrl, {
+//         model: "gpt-3.5-turbo",
+//         messages: [
+//           {"role": "system", "content": data.prompt},
+//           {"role": "user", "content": data.concatenatedString},
+//         ],
+//         max_tokens: 200,
+//         temperature: 0.7,
+//       }, {
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `Bearer ${apiKey}`,
+//           "OpenAI-Organization": "org-Fj6flRfb4tQM5OXbBle6a2qX",
+//         },
+//       });
+//       /**
+//       * Asynchronously checks if the user has an active Stripe subscription.
+//       * @async
+//       * @param {string} uid - The user's ID.
+//    * @return {Promise<boolean>} -Promise tha resolves if user has active sub.
+// * @throws throws error if user not exists or doesn't have a Stripe ID
+//       */
+//       async function hasActiveSubscription(uid) {
+//         const userDoc = await admin.firestore()
+//             .collection("users").doc(uid).get();
+
+//         // If the user NO have a stripeCustomerId, return false
+//         if (!userDoc.exists || !userDoc.data().stripeCustomerId) {
+//           return false;
+//         }
+
+//         const customerId = userDoc.data().stripeCustomerId;
+
+//         // List the subscriptions for the customer
+//         const subscriptions = await stripe.subscriptions.list({
+//           customer: customerId,
+//         });
+
+//         // Check if the user has an active subscription
+//         return subscriptions.data.some((sub) => sub.status === "active");
+//       }
+
+
+//       // Increment the user's apiCallCount and update the lastApiCall date
+//       // await admin.firestore().collection("users").doc(uid).update({
+//       //   apiCallCount: userData.apiCallCount + 1,
+//       //   lastApiCall: new Date(),
+//       // });
+
+//       return response.data.choices[0].message.content;
+//     });
+// /**
+//  * Check if two dates fall on the same day
+//  *
+//  * @param {Date} d1 - The first date
+//  * @param {Date} d2 - The second date
+//  * @return {boolean} - Return true if the dates are on the same day
+//  */
+// function sameDay(d1, d2) {
+//   return d1.getFullYear() === d2.getFullYear() &&
+//     d1.getMonth() === d2.getMonth() &&
+//     d1.getDate() === d2.getDate();
+// }
+
 exports.generateConversationStarter = functions.
     https.onCall(async (data, context) => {
       const apiKey = functions.config().openai.key;
