@@ -34,6 +34,14 @@ const OutputScreen = ({ navigation, route }) => {
   //Premium feature
   const { isPremium, setIsPremium } = useContext(UserContext);
 
+  //Spacer to center the text in free version
+  const Spacer = () => {
+    if (isPremium) {
+        return null;
+    }
+    return <View style={{ height: 50 }} />;
+};
+
   const functions = getFunctions(app);
 
   console.log(pass);
@@ -51,7 +59,7 @@ const OutputScreen = ({ navigation, route }) => {
     const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter');
     try{
       console.log("Calling generateConversationStarter");
-      const response = await generateConversationStarter({ prompt, concatenatedString });
+      const response = await generateConversationStarter({  prompt, concatenatedString, isPremium  });
 
       setRegenerating(false);
     
@@ -141,6 +149,8 @@ const OutputScreen = ({ navigation, route }) => {
       setShowPopup(!showPopup);
     };
 
+
+
     return (
       <View style={styles.container} >
 
@@ -154,6 +164,9 @@ const OutputScreen = ({ navigation, route }) => {
         
 
           {imageSource && <Image source={imageSource} style={styles.styleIconImage} />}
+
+          <Spacer /> 
+
 
          {/* <View style={[styles.container, containerStyle]}>  */}
           <Text 

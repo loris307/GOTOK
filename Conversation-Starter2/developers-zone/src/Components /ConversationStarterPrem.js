@@ -3,6 +3,8 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Text, Keyboard, Image, T
 import Slider from '@react-native-community/slider';
 //import DropDownPicker from 'react-native-dropdown-picker';
 import i18n from '../../i18n.js';
+import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+
 
 //functions 
 import 'firebase/functions';
@@ -26,7 +28,7 @@ const ConversationStarterPrem = ({navigation, route}) => {
   const charLimitGender = 20; // considering an average word length of 5 characters, and some spaces
   const [errorMessage, setErrorMessage] = useState(null); // Error message if the user exceeds prompt limit
 
-  //const { user, counter, setCounter } = useContext(UserContext);
+  const { isPremium, setIsPremium } = useContext(UserContext);
 
 
 
@@ -119,22 +121,23 @@ const [count, setCount] = useState(1);
   
     // Call the Cloud Function
     const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter');
-    try{
-      //throw new Error('This is an error');
-      const response = await generateConversationStarter({ prompt, concatenatedString });
-
+    try {
+      const response = await generateConversationStarter({ prompt, concatenatedString, isPremium });
       setLoading(false);
-    
       const text = response.data;
       console.log(text);
-      let pass = text; //pass wird an OutputScreen übergeben - pass ist der Output von GPT-3
-      let iconpass = selectedStyleIcon; //---------------------------------------------
+      let pass = text;
+      let iconpass = selectedStyleIcon;
       navigation.navigate('OutputScreen', { pass, iconpass, formData });
-      
-    }catch(error){
+  } catch (error) {
       console.log(error);
-      setErrorMessage(error.message);
-    }
+      if (error.code === 'exhausted') {
+          setErrorMessage("You've reached your daily limit of prompts.");
+      } else {
+          setErrorMessage(error.message);
+      }
+  }
+  
     
   };
 
