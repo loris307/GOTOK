@@ -33,6 +33,8 @@ const OutputScreen = ({ navigation, route }) => {
   
   //Premium feature
   const { isPremium, setIsPremium } = useContext(UserContext);
+  const [showPremiumPopup, setShowPremiumPopup] = useState(false);
+
 
   //Spacer to center the text in free version
   const Spacer = () => {
@@ -76,6 +78,9 @@ const OutputScreen = ({ navigation, route }) => {
       
     }catch (error) {
       console.log(error);
+      if (!isPremium) {
+          setShowPremiumPopup(true);
+      } else {
           Alert.alert(
               "Error", 
               error.message,
@@ -84,8 +89,8 @@ const OutputScreen = ({ navigation, route }) => {
               ],
               { cancelable: false }
           );
-          setRegenerating(false);
-    }
+      }
+  }
 };
     
     const [advice, setAdvice] = useState([]);
@@ -223,6 +228,8 @@ const OutputScreen = ({ navigation, route }) => {
           </View>
           
         </View>
+        {showPremiumPopup && <PremiumScreenPopUp onClose={() => setShowPremiumPopup(false)} navigation={navigation} />}
+
       </View>
 
       
