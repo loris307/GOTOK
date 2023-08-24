@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Keyboard, Image, TouchableWithoutFeedback, ActivityIndicator, Modal} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Keyboard, Image, TouchableWithoutFeedback, ActivityIndicator, Modal, Alert} from 'react-native';
 import Slider from '@react-native-community/slider';
 //import DropDownPicker from 'react-native-dropdown-picker';
 import i18n from '../../i18n.js';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
-
+import PremiumScreenPopUp from './PremiumScreenPopUp.js';
 
 //functions 
 import 'firebase/functions';
@@ -30,6 +30,7 @@ const ConversationStarterPrem = ({navigation, route}) => {
 
   const { isPremium, setIsPremium } = useContext(UserContext);
 
+  const [showPremiumPopup, setShowPremiumPopup] = useState(false);
 
 
   //Input Situation char limit 
@@ -120,7 +121,7 @@ const [count, setCount] = useState(1);
     console.log(concatenatedString);
   
     // Call the Cloud Function
-    const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter');
+    const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter2');
     try {
       const response = await generateConversationStarter({ prompt, concatenatedString, isPremium });
       setLoading(false);
@@ -130,13 +131,27 @@ const [count, setCount] = useState(1);
       let iconpass = selectedStyleIcon;
       navigation.navigate('OutputScreen', { pass, iconpass, formData });
   } catch (error) {
-      console.log(error);
-      if (error.code === 'exhausted') {
-          setErrorMessage("You've reached your daily limit of prompts.");
-      } else {
-          setErrorMessage(error.message);
-      }
-  }
+    console.log(error);
+    if (!isPremium) {
+        setShowPremiumPopup(true);
+    } else {
+        Alert.alert(
+            "Error", 
+            error.message,
+            [
+                {text: "OK", onPress: () => console.log("OK Pressed")}
+            ],
+            { cancelable: false }
+        );
+    }
+}
+
+
+
+
+
+
+
   
     
   };
@@ -337,8 +352,11 @@ const [count, setCount] = useState(1);
           </TouchableOpacity>
         </View>
       </Modal>
+      
+      {showPremiumPopup && <PremiumScreenPopUp onClose={() => setShowPremiumPopup(false)} navigation={navigation} />}
 
     </View>
+
 
     
     </TouchableWithoutFeedback>

@@ -58,7 +58,6 @@ const MainApp = () => {
         <Stack.Screen options={{headerShown: false}} name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} />
         <Stack.Screen options={{headerShown: false}} name="TermsOfUseTextScreen" component={TermsOfUseTextScreen} />
         <Stack.Screen options={{headerShown: false}} name="ManageAccount" component={ManageAccount} />
-        <Stack.Screen options={{headerShown: false}} name="PremiumPurchaseScreen" component={PremiumPurchaseScreen} />
 
       </Stack.Navigator>
     ) : (

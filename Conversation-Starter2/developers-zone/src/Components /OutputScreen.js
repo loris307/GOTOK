@@ -56,7 +56,7 @@ const OutputScreen = ({ navigation, route }) => {
     const concatenatedString = Object.values(formData).join(", ");
   
     // Call the Cloud Function
-    const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter');
+    const generateConversationStarter = httpsCallable(functions, 'generateConversationStarter2');
     try{
       console.log("Calling generateConversationStarter");
       const response = await generateConversationStarter({  prompt, concatenatedString, isPremium  });
@@ -74,10 +74,17 @@ const OutputScreen = ({ navigation, route }) => {
       //setPass(sample);
       //setIconpass(formData.Style.split(': ')[1]); // Assuming Style: "Output Style: someIconStyle"
       
-    }catch(error){
+    }catch (error) {
       console.log(error);
-      setErrorMessage(error.message);
-      setRegenerating(false);
+          Alert.alert(
+              "Error", 
+              error.message,
+              [
+                  {text: "OK", onPress: () => console.log("OK Pressed")}
+              ],
+              { cancelable: false }
+          );
+          setRegenerating(false);
     }
 };
     

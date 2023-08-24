@@ -76,7 +76,7 @@ const PremiumScreenPopUp = ({ onClose, navigation }) => {
 
 
         <View style={styles.btnContainer}>
-         <TouchableOpacity onPress={() => {navigation.navigate('OccasionView')}} style={styles.buttonSub}>
+         <TouchableOpacity onPress={() => {navigation.navigate('PremiumScreen')}} style={styles.buttonSub}>
             <Text style={styles.buttonTextSub}>{i18n.t("subscribeBtn")}</Text>
         </TouchableOpacity>
 
