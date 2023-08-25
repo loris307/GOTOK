@@ -254,8 +254,6 @@ const OutputScreen = ({ navigation, route }) => {
         width: '100%',
     },
     btn:{
-        
-
         backgroundColor: 'white',
         width: '90%',
         height: 50,
@@ -268,7 +266,7 @@ const OutputScreen = ({ navigation, route }) => {
     },
 
     longText: {
-      fontSize: 18, // reduce the font size for long text
+      fontSize: 18, 
       lineHeight: 26,
       marginBottom: 10,
     },
@@ -279,7 +277,7 @@ const OutputScreen = ({ navigation, route }) => {
       padding: 15,
       textAlign: 'center',
       marginTop: 20,
-      width: '90%',   // Will take 90% of the parent container width
+      width: '90%',   
       marginBottom: 40,
   },
 
