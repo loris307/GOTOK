@@ -52,9 +52,6 @@ exports.generateConversationStarter2 = functions.
         }
 
         const userData = userDoc.data();
-        // const isPremium = data.isPremium || false;
-
-        // userLimit = isPremium ? 25 : 5;
 
         if (userData.apiCallCount >= userLimit &&
             sameDay2(userData.lastApiCall.toDate(), new Date())) {
