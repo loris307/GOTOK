@@ -6,7 +6,6 @@ import i18n from '../../i18n.js';
 import 'firebase/functions';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../../firebase.js';
-//import Clipboard from '@react-native-clipboard/clipboard';
 import * as Clipboard from 'expo-clipboard';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 
