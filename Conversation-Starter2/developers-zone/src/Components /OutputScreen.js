@@ -179,7 +179,6 @@ const OutputScreen = ({ navigation, route }) => {
           <Spacer /> 
 
 
-         {/* <View style={[styles.container, containerStyle]}>  */}
           <Text 
             style={[
             isPremium ? (pass.length > 140 ? styles.longText : styles.text) : styles.text
@@ -188,7 +187,6 @@ const OutputScreen = ({ navigation, route }) => {
           >
             {pass} 
           </Text>
-         {/* </View>  */}
         
 
           {isPremium && (
@@ -246,9 +244,7 @@ const OutputScreen = ({ navigation, route }) => {
     
     mainContainer: {
         flex: 1,
-        
         alignItems: 'center',
-        
       },
 
     buttoncontainer: {
@@ -256,7 +252,6 @@ const OutputScreen = ({ navigation, route }) => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        // other styles
     },
     btn:{
         
