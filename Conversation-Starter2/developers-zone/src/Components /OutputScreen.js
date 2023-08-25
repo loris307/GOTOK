@@ -67,7 +67,6 @@ const OutputScreen = ({ navigation, route }) => {
     
       const text = response.data;
       console.log(text);
-      // Instead of navigating to OutputScreen, update pass and iconpass
       
       //sample text to try
       //let sample = "Hey there, did it hurt when you fell from the profile picture? Because you're definitely rocking that digital gravity! 😉 #Swipehjz uzgb uzgub zgug jkbnkjb iuib iuhib"
@@ -144,7 +143,7 @@ const OutputScreen = ({ navigation, route }) => {
       break;
   }
 
-  
+  //Copying to Cliboard
   const copyToClipboard = () => {
     Clipboard.setString(pass);
     Alert.alert('Success', 'Text copied to clipboard');
@@ -155,8 +154,8 @@ const OutputScreen = ({ navigation, route }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [randomIndex, setRandomIndex] = useState(0);
 
-
-
+  
+    //Function to toggle the popup
     const togglePopup = () => {
       setShowPopup(!showPopup);
     };
