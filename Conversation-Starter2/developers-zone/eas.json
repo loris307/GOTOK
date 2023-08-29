@@ -16,8 +16,15 @@
     "preview3": {
       "developmentClient": true
     },
-    "production": {}
-  },
+    "production": {},
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+    }
+  }
+},
   "submit": {
     "production": {
       "ios": {
