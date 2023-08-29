@@ -26,7 +26,13 @@
       "eas": {
         "projectId": "08ab252c-e9cf-4f3f-a2b5-e1323a95cde2"
       }
+    },
+    "react-native-google-mobile-ads": {
+      "android_app_id": "ca-app-pub-3940256099942544~3347511713",
+      "ios_app_id": "ca-app-pub-3940256099942544~1458002511"
     }
   },
   "name": "GoTok AI"
+
+  
 }
