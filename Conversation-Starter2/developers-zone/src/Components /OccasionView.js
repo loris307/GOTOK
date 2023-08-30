@@ -4,6 +4,9 @@ import { SearchBar } from 'react-native-elements';
 import Header from '../utils/header.js';
 import OccasionIcons from 'developers-zone/src/utils/OccasionIcons.js'; 
 import i18n from '../../i18n.js';
+import mobileAds from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
 
 
 
@@ -24,6 +27,9 @@ const OccasionView = ({ navigation }) => {
   const icons = ['Social', 'Dating App', 'Party', 'Restaurant', 'Bar', 'Café', 'Grocery', 'Park', 'Public Transport', 'Beach', 'Gym', 'Bus Station', 'Cinema', 'Comedy Show','Concert','Elevator','Exhibition','Festival','Hair Salon','Holiday Resort','Library','Museum','School','Sport Event', 'University', 'Wedding','Wellness Center']; // Array of icons -> this determines the order of the icons
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredIcons, setFilteredIcons] = useState(icons);
+
+  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+
 
   useEffect(() => {
     const languageChangeListener = DeviceEventEmitter.addListener('languageChange', () => {
@@ -70,6 +76,13 @@ const OccasionView = ({ navigation }) => {
               <IconWrapper key={iconIndex} navigation={navigation} title={icon} searchQuery={searchQuery} /> // Pass the title prop to IconWrapper
             ))}
           </View>
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+            requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+          />
         </ScrollView>
       </View>
     </TouchableWithoutFeedback>

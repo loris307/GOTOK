@@ -104,6 +104,15 @@ export default function App() {
     return authObserver; // This ensures the listener is removed when the component is unmounted
   }, []);
 
+  useEffect(() => {
+    // Initialize the Google Mobile Ads SDK
+    mobileAds()
+      .initialize()
+      .then(adapterStatuses => {
+        console.log('Ads SDK initialized!', adapterStatuses);
+      });
+  }, []);  
+
   const checkSubscriptionStatus = async () => {
     const functions = getFunctions();
     const checkSubscriptionStatusFunction = httpsCallable(functions, 'checkSubscriptionStatus');
