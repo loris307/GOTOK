@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider';
 import i18n from '../../i18n.js';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
 import PremiumScreenPopUp from './PremiumScreenPopUp.js';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 //functions 
 import 'firebase/functions';
@@ -31,6 +32,9 @@ const ConversationStarterPrem = ({navigation, route}) => {
   const { isPremium, setIsPremium } = useContext(UserContext);
 
   const [showPremiumPopup, setShowPremiumPopup] = useState(false);
+
+  //for ads
+  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
 
   //Input Situation char limit 
@@ -334,6 +338,7 @@ const [count, setCount] = useState(1);
             </TouchableOpacity>
         </View>
 
+
     </View>
 
       <Modal
@@ -352,6 +357,16 @@ const [count, setCount] = useState(1);
           </TouchableOpacity>
         </View>
       </Modal>
+
+      {!isPremium && (
+        <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+        />
+)}
       
       {showPremiumPopup && <PremiumScreenPopUp onClose={() => setShowPremiumPopup(false)} navigation={navigation} />}
 
@@ -396,6 +411,7 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         alignItems: 'center',
+        
     },
 
     buttonSend: {

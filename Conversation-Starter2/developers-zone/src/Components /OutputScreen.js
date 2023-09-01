@@ -58,36 +58,32 @@ const OutputScreen = ({ navigation, route }) => {
 
 //load ad when component mounts
 useEffect(() => {
-  const loadedListener = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
-    console.log('Interstitial ad loaded');
+  if (!isPremium) {
+    const loadedListener = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
+      console.log('Interstitial ad loaded');
+      if (!loaded) {
+        interstitialAd.show();
+        const newAd = InterstitialAd.createForAdRequest(adUnitId, {
+            requestNonPersonalizedAdsOnly: true,
+            keywords: ['fashion', 'clothing'],
+        });
+        newAd.load();
+        setInterstitialAd(newAd);
+        setLoaded(true);
+      }
+    });
 
-    if (!loaded) {  // This will only be true the first time
-      // Show the ad as soon as it's loaded when the screen opens
-      interstitialAd.show();
+    const errorListener = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
+        console.error('Interstitial ad error:', error);
+    });
 
-      // After showing, create a new ad instance and load it for the next time
-      const newAd = InterstitialAd.createForAdRequest(adUnitId, {
-          requestNonPersonalizedAdsOnly: true,
-          keywords: ['fashion', 'clothing'],
-      });
-      newAd.load();
-      setInterstitialAd(newAd);
-      setLoaded(true);
-    }
-  });
+    interstitialAd.load();
 
-  const errorListener = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
-      console.error('Interstitial ad error:', error);
-  });
-
-  // Start loading the interstitial ad
-  interstitialAd.load();
-
-  // Cleanup the event listeners on unmount
-  return () => {
-      loadedListener();
-      errorListener();
-  };
+    return () => {
+        loadedListener();
+        errorListener();
+    };
+  }
 }, []);
 
 
@@ -101,10 +97,8 @@ useEffect(() => {
 
   const regenerate = async () => {
 
-    if (loaded) {
+    if (!isPremium && loaded) {
       interstitialAd.show();
-
-      // After showing, create a new ad instance and load it for the next time
       const newAd = InterstitialAd.createForAdRequest(adUnitId, {
           requestNonPersonalizedAdsOnly: true,
           keywords: ['fashion', 'clothing'],
@@ -241,14 +235,14 @@ useEffect(() => {
 
 
           <Text 
-    style={[
-        styles.text, 
-        isPremium && pass.length > 140 ? styles.longText : null
-    ]}
-    onPress={copyToClipboard}
->
-    {pass}
-</Text>
+            style={[
+              styles.text, 
+              isPremium && pass.length > 140 ? styles.longText : null
+            ]}
+            onPress={copyToClipboard}
+          >
+            {pass}
+          </Text>
         
 
           {isPremium && (
