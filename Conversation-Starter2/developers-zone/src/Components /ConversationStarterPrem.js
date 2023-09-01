@@ -328,15 +328,27 @@ const [count, setCount] = useState(1);
             <ActivityIndicator size="small" color="white" /> // Show loading spinner if loading
             ) : (
             <Text style={styles.buttonText}>{i18n.t("sendPromptbtn")}</Text> // Show button text if not loading
-        )}
-      </TouchableOpacity>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonBack} onPress={() => {navigation.navigate('OccasionView')}} >
-                <Text style={styles.buttonBackText}>{i18n.t("backToOccasion")}</Text>
-            </TouchableOpacity>
-        </View>
+    <TouchableOpacity style={styles.buttonBack} onPress={() => {navigation.navigate('OccasionView')}}>
+      <Text style={styles.buttonBackText}>{i18n.t("backToOccasion")}</Text>
+    </TouchableOpacity>
+  </View>
+
+  <View style={styles.bannerContainer}>
+  {!isPremium && (
+    <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
+  )}
+</View>
 
 
     </View>
@@ -358,7 +370,7 @@ const [count, setCount] = useState(1);
         </View>
       </Modal>
 
-      {!isPremium && (
+      {/* {!isPremium && (
         <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -366,7 +378,7 @@ const [count, setCount] = useState(1);
           requestNonPersonalizedAdsOnly: true,
         }}
         />
-)}
+)} */}
       
       {showPremiumPopup && <PremiumScreenPopUp onClose={() => setShowPremiumPopup(false)} navigation={navigation} />}
 
@@ -382,6 +394,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex:1,
         backgroundColor: '#fff',
+        justifyContent: 'space-between',
 
     },
 
@@ -390,6 +403,13 @@ const styles = StyleSheet.create({
         padding:  25,
         justifyContent: 'space-between',
         backgroundColor: '#fff',
+    },
+
+    bannerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',  // Optionally, for vertical centering
+      width: '100%',
     },
 
     input: {
@@ -411,8 +431,9 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         alignItems: 'center',
-        
+        //marginTop: 20,
     },
+
 
     buttonSend: {
         backgroundColor: '#B623A3',
