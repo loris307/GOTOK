@@ -8,6 +8,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../../firebase.js';
 import * as Clipboard from 'expo-clipboard';
 import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import { InterstitialAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
 
 
 
@@ -26,6 +27,18 @@ import advice_gr from 'developers-zone/src/assets/advices/advice_gr.js';
 const OutputScreen = ({ navigation, route }) => {
   const { pass: initialPass, iconpass: initialIconpass, formData } = route.params;
   
+  //For ads
+  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  const [loaded, setLoaded] = useState(false);
+
+
+  const [interstitialAd, setInterstitialAd] = useState(
+    InterstitialAd.createForAdRequest(adUnitId, {
+        requestNonPersonalizedAdsOnly: true,
+        keywords: ['fashion', 'clothing'],
+    })
+);
+
   // Add state variables for pass and iconpass
   const [pass, setPass] = useState(initialPass);
   const [iconpass, setIconpass] = useState(initialIconpass);
@@ -43,6 +56,42 @@ const OutputScreen = ({ navigation, route }) => {
     return <View style={{ height: 50 }} />;
 };
 
+//load ad when component mounts
+useEffect(() => {
+  const loadedListener = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
+    console.log('Interstitial ad loaded');
+
+    if (!loaded) {  // This will only be true the first time
+      // Show the ad as soon as it's loaded when the screen opens
+      interstitialAd.show();
+
+      // After showing, create a new ad instance and load it for the next time
+      const newAd = InterstitialAd.createForAdRequest(adUnitId, {
+          requestNonPersonalizedAdsOnly: true,
+          keywords: ['fashion', 'clothing'],
+      });
+      newAd.load();
+      setInterstitialAd(newAd);
+      setLoaded(true);
+    }
+  });
+
+  const errorListener = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
+      console.error('Interstitial ad error:', error);
+  });
+
+  // Start loading the interstitial ad
+  interstitialAd.load();
+
+  // Cleanup the event listeners on unmount
+  return () => {
+      loadedListener();
+      errorListener();
+  };
+}, []);
+
+
+
   const functions = getFunctions(app);
 
   console.log(pass);
@@ -51,6 +100,19 @@ const OutputScreen = ({ navigation, route }) => {
   const [regenerating, setRegenerating] = useState(false);
 
   const regenerate = async () => {
+
+    if (loaded) {
+      interstitialAd.show();
+
+      // After showing, create a new ad instance and load it for the next time
+      const newAd = InterstitialAd.createForAdRequest(adUnitId, {
+          requestNonPersonalizedAdsOnly: true,
+          keywords: ['fashion', 'clothing'],
+      });
+      newAd.load();
+      setInterstitialAd(newAd);
+    }
+
     setRegenerating(true);
 
     const prompt = 'Generate a short, creative, context-specific, and culturally-sensitive conversation starter line that combines the talking styles of renowned stand-up comedians and top-notch dating experts, without explicitly naming any. The pickup line should be engaging, original, not cheesy, and serve as an entertaining icebreaker with subtle flirty undertones. Keep it within a 25-word limit, based on user input details such as who the user is talking to, the number of people involved, the scenario, the users preferred output style, the age of the person the user is talking to, the occasion, and the preferred output language. Use this information as context for generating a suitable line, not as a source for direct quotations. Adjust to local customs, social norms, and regional language variations. Always generate the output in the specified language. Do not include additional comments or notes using brackets, asterisks, or colons. For example: User Input: User is talking to: female, Number of people:1, The scenario is: She is doing cocaine at the bar non-stop, Preferred Output Style: slang, Age of the Person User is Talking to: 90, Occasion: Night Club, Preferred Output Language: en | Output: Hey Grandma, you sure are giving that coke the respect it deserves! You remind me of a cross between a boss and Betty Whit. Mind if I join in and we keep this party all night long?';
@@ -179,13 +241,14 @@ const OutputScreen = ({ navigation, route }) => {
 
 
           <Text 
-            style={[
-            isPremium ? (pass.length > 140 ? styles.longText : styles.text) : styles.text
-            ]}
-            onPress={copyToClipboard}
-          >
-            {pass} 
-          </Text>
+    style={[
+        styles.text, 
+        isPremium && pass.length > 140 ? styles.longText : null
+    ]}
+    onPress={copyToClipboard}
+>
+    {pass}
+</Text>
         
 
           {isPremium && (
