@@ -7,7 +7,7 @@ import 'firebase/functions';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../../firebase.js';
 import * as Clipboard from 'expo-clipboard';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from '../utils/UserContext.js';
 import { InterstitialAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
 
 

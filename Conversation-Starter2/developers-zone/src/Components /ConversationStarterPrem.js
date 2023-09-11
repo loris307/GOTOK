@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Text, Keyboard, Image, T
 import Slider from '@react-native-community/slider';
 //import DropDownPicker from 'react-native-dropdown-picker';
 import i18n from '../../i18n.js';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from '../utils/UserContext.js'
 import PremiumScreenPopUp from './PremiumScreenPopUp.js';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 

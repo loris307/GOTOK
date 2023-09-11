@@ -38,7 +38,7 @@ import UpdateRequiredScreen from './src/Components /UpdateRequired';
 import ManageAccount from './src/Components /ManageAccount.js';
 import PremiumPurchaseScreen from './src/Components /PremiumPurchaseScreen';
 
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from 'developers-zone/src/utils/UserContext.js'
 
 LogBox.ignoreAllLogs(); //Ignore logs that match the text
 

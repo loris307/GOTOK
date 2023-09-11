@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from '../utils/UserContext.js'
 
 
 const PremiumPurchaseScreen = () => {

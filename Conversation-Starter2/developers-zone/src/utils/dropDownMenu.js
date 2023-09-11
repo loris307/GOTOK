@@ -5,7 +5,7 @@ import { faBars, faTimes, faPlus, faGlobe, faLocationDot, faStar, faRightFromBra
 import {useAuthentication}  from 'developers-zone/src/Components /UserAuth/useAuthentication.ts';
 import { faLock } from '@fortawesome/free-solid-svg-icons'; // Import lock icon
 import {faUser}from '@fortawesome/free-solid-svg-icons';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from './UserContext.js'
 
 
 import i18n from '../../i18n.js';

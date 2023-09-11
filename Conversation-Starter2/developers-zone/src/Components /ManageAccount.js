@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert,TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from '../utils/UserContext.js';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { Stripe } from '@stripe/stripe-react-native';

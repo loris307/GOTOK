@@ -5,7 +5,7 @@ import Header from '../utils/header';
 import i18n from '../../i18n.js';
 import { useStripe } from '@stripe/stripe-react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import UserContext from '/Users/lorisgaller/Desktop/GoTok GitHub/GOTOK/Conversation-Starter2/developers-zone/src/utils/UserContext.js'
+import UserContext from '../utils/UserContext.js';
 
 
 //This Screen is not used -> Just has all the code for the subscription
