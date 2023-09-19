@@ -10,7 +10,8 @@
       "displayName": "GoTok AI"
     },
     "android": {
-      "package": "com.gotokai.app"
+      "package": "com.gotokai.app",
+      "permissions": ["INTERNET", "ACCESS_NETWORK_STATE"]
     },
     "assetBundlePatterns": [
       "**/*"
