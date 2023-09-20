@@ -17,10 +17,8 @@
       "developmentClient": true
     },
     "production": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "simulator": true
+      "android": {
+        "buildType": "apk"
       }
     },
     "development": {
