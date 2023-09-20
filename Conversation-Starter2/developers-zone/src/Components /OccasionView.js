@@ -4,8 +4,8 @@ import { SearchBar } from 'react-native-elements';
 import Header from '../utils/header.js';
 import OccasionIcons from 'developers-zone/src/utils/OccasionIcons.js'; 
 import i18n from '../../i18n.js';
-import mobileAds from 'react-native-google-mobile-ads';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+//import mobileAds from 'react-native-google-mobile-ads';
+//import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 
 
@@ -76,13 +76,13 @@ const OccasionView = ({ navigation }) => {
               <IconWrapper key={iconIndex} navigation={navigation} title={icon} searchQuery={searchQuery} /> // Pass the title prop to IconWrapper
             ))}
           </View>
-          <BannerAd
+          {/* <BannerAd
             unitId={adUnitId}
             size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
             requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-          />
+          /> */}
         </ScrollView>
       </View>
     </TouchableWithoutFeedback>

@@ -8,7 +8,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { app } from '../../firebase.js';
 import * as Clipboard from 'expo-clipboard';
 import UserContext from '../utils/UserContext.js';
-import { InterstitialAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+//import { InterstitialAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
 
 
 
@@ -32,12 +32,12 @@ const OutputScreen = ({ navigation, route }) => {
   const [loaded, setLoaded] = useState(false);
 
 
-  const [interstitialAd, setInterstitialAd] = useState(
-    InterstitialAd.createForAdRequest(adUnitId, {
-        requestNonPersonalizedAdsOnly: true,
-        keywords: ['fashion', 'clothing'],
-    })
-);
+//   const [interstitialAd, setInterstitialAd] = useState(
+//     InterstitialAd.createForAdRequest(adUnitId, {
+//         requestNonPersonalizedAdsOnly: true,
+//         keywords: ['fashion', 'clothing'],
+//     })
+// );
 
   // Add state variables for pass and iconpass
   const [pass, setPass] = useState(initialPass);
@@ -57,34 +57,34 @@ const OutputScreen = ({ navigation, route }) => {
 };
 
 //load ad when component mounts
-useEffect(() => {
-  if (!isPremium) {
-    const loadedListener = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
-      console.log('Interstitial ad loaded');
-      if (!loaded) {
-        interstitialAd.show();
-        const newAd = InterstitialAd.createForAdRequest(adUnitId, {
-            requestNonPersonalizedAdsOnly: true,
-            keywords: ['fashion', 'clothing'],
-        });
-        newAd.load();
-        setInterstitialAd(newAd);
-        setLoaded(true);
-      }
-    });
+// useEffect(() => {
+//   if (!isPremium) {
+//     const loadedListener = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
+//       console.log('Interstitial ad loaded');
+//       if (!loaded) {
+//         interstitialAd.show();
+//         const newAd = InterstitialAd.createForAdRequest(adUnitId, {
+//             requestNonPersonalizedAdsOnly: true,
+//             keywords: ['fashion', 'clothing'],
+//         });
+//         newAd.load();
+//         setInterstitialAd(newAd);
+//         setLoaded(true);
+//       }
+//     });
 
-    const errorListener = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
-        console.error('Interstitial ad error:', error);
-    });
+//     const errorListener = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
+//         console.error('Interstitial ad error:', error);
+//     });
 
-    interstitialAd.load();
+//     interstitialAd.load();
 
-    return () => {
-        loadedListener();
-        errorListener();
-    };
-  }
-}, []);
+//     return () => {
+//         loadedListener();
+//         errorListener();
+//     };
+//   }
+// }, []);
 
 
 
@@ -97,15 +97,15 @@ useEffect(() => {
 
   const regenerate = async () => {
 
-    if (!isPremium && loaded) {
-      interstitialAd.show();
-      const newAd = InterstitialAd.createForAdRequest(adUnitId, {
-          requestNonPersonalizedAdsOnly: true,
-          keywords: ['fashion', 'clothing'],
-      });
-      newAd.load();
-      setInterstitialAd(newAd);
-    }
+    // if (!isPremium && loaded) {
+    //   interstitialAd.show();
+    //   const newAd = InterstitialAd.createForAdRequest(adUnitId, {
+    //       requestNonPersonalizedAdsOnly: true,
+    //       keywords: ['fashion', 'clothing'],
+    //   });
+    //   newAd.load();
+    //   setInterstitialAd(newAd);
+    // }
 
     setRegenerating(true);
 

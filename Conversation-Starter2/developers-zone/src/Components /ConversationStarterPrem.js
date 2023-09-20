@@ -5,7 +5,8 @@ import Slider from '@react-native-community/slider';
 import i18n from '../../i18n.js';
 import UserContext from '../utils/UserContext.js'
 import PremiumScreenPopUp from './PremiumScreenPopUp.js';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+//import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 //functions 
 import 'firebase/functions';
@@ -34,7 +35,7 @@ const ConversationStarterPrem = ({navigation, route}) => {
   const [showPremiumPopup, setShowPremiumPopup] = useState(false);
 
   //for ads
-  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  //const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
 
   //Input Situation char limit 
@@ -338,7 +339,7 @@ const [count, setCount] = useState(1);
     </TouchableOpacity>
   </View>
 
-  <View style={styles.bannerContainer}>
+  {/* <View style={styles.bannerContainer}> Das hier brauch ich wieder für die Ads
   {!isPremium && (
     <BannerAd
       unitId={adUnitId}
@@ -348,7 +349,7 @@ const [count, setCount] = useState(1);
       }}
     />
   )}
-</View>
+</View> */}
 
 
     </View>

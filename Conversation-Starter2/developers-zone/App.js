@@ -10,7 +10,8 @@ import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
 import { initStripe } from "@stripe/stripe-react-native";
 import { getFunctions, httpsCallable } from 'firebase/functions';
 //import 'expo-dev-client'
-import mobileAds from 'react-native-google-mobile-ads';
+
+//import mobileAds from 'react-native-google-mobile-ads'; 
 
 initStripe({
   publishableKey: 'pk_test_51NcWqjAmn8sb0ycrVKjeLjD22QScb58tmTqI6sm8G5bIWcty51LXjor3FR5ej9M4UZHmP9GqPeWCzQv5CTsnXddy00znuKSE4t',
@@ -104,14 +105,14 @@ export default function App() {
     return authObserver; // This ensures the listener is removed when the component is unmounted
   }, []);
 
-  useEffect(() => {
-    // Initialize the Google Mobile Ads SDK
-    mobileAds()
-      .initialize()
-      .then(adapterStatuses => {
-        console.log('Ads SDK initialized!', adapterStatuses);
-      });
-  }, []);  
+  // useEffect(() => {
+  //   // Initialize the Google Mobile Ads SDK
+  //   mobileAds()
+  //     .initialize()
+  //     .then(adapterStatuses => {
+  //       console.log('Ads SDK initialized!', adapterStatuses);
+  //     });
+  // }, []);  
 
   const checkSubscriptionStatus = async () => {
     const functions = getFunctions();
