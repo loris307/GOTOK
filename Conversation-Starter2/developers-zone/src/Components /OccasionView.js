@@ -28,7 +28,7 @@ const OccasionView = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredIcons, setFilteredIcons] = useState(icons);
 
-  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  //const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
 
   useEffect(() => {

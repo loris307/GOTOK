@@ -28,7 +28,7 @@ const OutputScreen = ({ navigation, route }) => {
   const { pass: initialPass, iconpass: initialIconpass, formData } = route.params;
   
   //For ads
-  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+  //const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
   const [loaded, setLoaded] = useState(false);
 
 
