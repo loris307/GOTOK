@@ -6,8 +6,7 @@
     "platforms": ["ios", "android"],
     "ios": {
       "bundleIdentifier": "com.gotokai.app",
-      "buildNumber": "2",
-      "displayName": "GoTok AI"
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.gotokai.app",
@@ -29,10 +28,6 @@
       }
     }
 
-  },
-  "name": "GoTok AI",
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-7992490047423478~9198874848"
   }
 
   
