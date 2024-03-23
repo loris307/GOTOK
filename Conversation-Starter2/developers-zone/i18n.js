@@ -79,6 +79,20 @@ const i18n = new I18n({
     premPopUpH1: "You used 2 free attempts today",
     premPopUpCTAText: "Upgrade to Premium subscription",
 
+    //Manage Account 
+    manageAccount: "Manage Account",
+    greeting: "Hello",
+    subscriptionDetails: "Subscription Details",
+    subscriptionDetails2: "Your subscription is currently:",
+    manageSubscription: "Manage Subscription",
+    updatePayment: "Update Payment Details",
+    cancelSub: "Cancel Subscription",
+    billingHistoryHeader: "Billing History",
+    paymentHistory: "View your past invoices and payments",
+    legalHeader: "Legal",
+    termsofService: "Terms of Service",
+    privacyPolicy: "Privacy Policy",
+
   },
   de: {
 
@@ -152,6 +166,19 @@ const i18n = new I18n({
     premPopUpH1: "Deine 2 Versuche sind weg!",
     premPopUpCTAText: "Upgrade auf Premium-Abonnement",
    
+    //Manage Account 
+    manageAccount: "Konto verwalten",
+    greeting: "Hallo",
+    subscriptionDetails: "Abonnementdetails",
+    subscriptionDetails2: "Ihr Abonnement ist derzeit:",
+    manageSubscription: "Abonnement verwalten",
+    updatePayment: "Zahlungsdetails aktualisieren",
+    cancelSub: "Abonnement kündigen",
+    billingHistoryHeader: "Abrechnungshistorie",
+    paymentHistory: "Sehen Sie Ihre vergangenen Rechnungen und Zahlungen ein",
+    legalHeader: "Rechtliches",
+    termsofService: "Nutzungsbedingungen",
+    privacyPolicy: "Datenschutzrichtlinien",
 
 
 },
@@ -228,6 +255,21 @@ gr: {
   //PremiumScreenPopup
   premPopUpH1: "Χρησιμοποιήθηκαν ήδη 2 δωρεάν προσπάθειες σήμερα",
   premPopUpCTAText: "Αναβάθμιση σε Premium συνδρομή",
+
+  //Manage Account
+  manageAccount: "Διαχείριση Λογαριασμού",
+  greeting: "Γεια",
+  subscriptionDetails: "Λεπτομέρειες Συνδρομής",
+  subscriptionDetails2: "Η συνδρομή σας είναι προς το παρόν:",
+  manageSubscription: "Διαχείριση Συνδρομής",
+  updatePayment: "Ενημέρωση Στοιχείων Πληρωμής",
+  cancelSub: "Ακύρωση Συνδρομής",
+  billingHistoryHeader: "Ιστορικό Χρεώσεων",
+  paymentHistory: "Προβολή των προηγούμενων τιμολογίων και πληρωμών σας",
+  legalHeader: "Νομικά",
+  termsofService: "Όροι Υπηρεσίας",
+  privacyPolicy: "Πολιτική Απορρήτου",
+
 
 },
 });

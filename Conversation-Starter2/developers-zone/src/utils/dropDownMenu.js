@@ -76,7 +76,7 @@ const Menu = ({ navigation }) => {
               <TouchableOpacity onPress={() => {toggleMenu(); navigation.navigate('ManageAccount')}}>
                 <View style={styles.menuItemsContainer}>
                 <FontAwesomeIcon color={'white'} icon={faUser} size={13} style={{marginRight: 10}}  />
-                <Text style={styles.text}>Manage Account</Text>
+                <Text style={styles.text}>{i18n.t("manageAccount")}</Text>
                 </View>
               </TouchableOpacity>
             )}

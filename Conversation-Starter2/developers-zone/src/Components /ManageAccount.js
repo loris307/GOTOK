@@ -7,6 +7,8 @@ import { getAuth } from 'firebase/auth';
 import { Stripe } from '@stripe/stripe-react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 
+import i18n from '../../i18n.js';
+
 
 
 const ManageAccount = ({ navigation }) => {
@@ -158,27 +160,27 @@ const ManageAccount = ({ navigation }) => {
 
       return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.greeting}>Hello, {username}! 👋</Text>
+            <Text style={styles.greeting}>{i18n.t("greeting")}, {username}! 👋</Text>
 
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Subscription Details</Text>
-                <Text>Your subscription is currently: {isPremium ? 'Active' : 'Inactive'}</Text>
+                <Text style={styles.sectionTitle}>{i18n.t("subscriptionDetails")}</Text>
+                <Text>{i18n.t("subscriptionDetails2")} {isPremium ? 'Active' : 'Inactive'}</Text>
                 {/*Other subscription details like renewal date, price, etc. */}
             </View>
 
             <View style={styles.divider} />
 
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Manage Subscription</Text>
+                <Text style={styles.sectionTitle}>{i18n.t("manageSubscription")}</Text>
                 <TouchableOpacity style={styles.touchableButton} onPress={paymentSheetReady ? handlePresentPaymentSheet : fetchSetupIntent}>
-                    <Text style={styles.buttonText}>Update Payment Details</Text>
+                    <Text style={styles.buttonText}>{i18n.t("updatePayment")}</Text>
                 </TouchableOpacity>
     
                 <TouchableOpacity style={styles.touchableButton} onPress={handleCancelSubscription}>
                   {loading ? (
                     <ActivityIndicator size="small" color="#FFFFFF" />
                   ) : (
-                    <Text style={styles.buttonText}>Cancel Subscription</Text>
+                    <Text style={styles.buttonText}>{i18n.t("cancelSub")}</Text>
                   )}
                 </TouchableOpacity>
             </View>
@@ -186,9 +188,9 @@ const ManageAccount = ({ navigation }) => {
             <View style={styles.divider} />
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Billing History</Text>
+              <Text style={styles.sectionTitle}>{i18n.t("billingHistoryHeader")}</Text>
               <TouchableOpacity onPress={fetchInvoices}>
-                  <Text style={styles.link}>View your past invoices and payments</Text>
+                  <Text style={styles.link}>{i18n.t("paymentHistory")}</Text>
               </TouchableOpacity>
 
                 {loadingInvoices && <ActivityIndicator size="small" color="#0000ff" />}
@@ -206,12 +208,12 @@ const ManageAccount = ({ navigation }) => {
             <View style={styles.divider} />
 
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Legal</Text>
+                <Text style={styles.sectionTitle}>{i18n.t("legalHeader")}</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('TermsOfUseTextScreen')}>
-                    <Text style={styles.link}>Terms of Service</Text>
+                    <Text style={styles.link}>{i18n.t("termsofService")}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
-                    <Text style={styles.link}>Privacy Policy</Text>
+                    <Text style={styles.link}>{i18n.t("privacyPolicy")}</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
