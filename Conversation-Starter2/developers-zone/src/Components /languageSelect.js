@@ -28,6 +28,18 @@ const LanguageSelectionScreen = ({ navigation }) => {
         <Picker.Item label="Deutsch" value="de" />
         <Picker.Item label="English" value="en" />
         <Picker.Item label="Ελληνικά" value="gr" />
+        <Picker.Item label="Español" value="mx" />
+        <Picker.Item label="Italiano" value="it" />
+        <Picker.Item label="Français" value="fr" />
+        <Picker.Item label="Português" value="pt" />
+        <Picker.Item label="Русский" value="ru" />
+        <Picker.Item label="한국어" value="kr" />
+        <Picker.Item label="中文" value="zh" />
+        <Picker.Item label="हिन्दी" value="hi" />
+        <Picker.Item label="українська" value="ukr" />
+        <Picker.Item label="Nederlands" value="nl" />
+
+        
 
       </Picker>
       <TouchableOpacity style={styles.buttonSend} onPress={() => {handleLanguageChange(); navigation.navigate('OccasionView');}}>
