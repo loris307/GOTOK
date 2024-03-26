@@ -1,5 +1,4 @@
-export default let advices_mx = [
-
+export default advice_mx = [
 "Asegúrate de sonreír siempre y mantener contacto visual cuando hables con alguien. Esto promueve un ambiente amigable y accesible, facilitando la conversación para todos los involucrados.",
 "Sé seguro y un poco coqueto en tu enfoque.",
 "No te cohíbas de usar el humor y mostrar interés, quizás preguntando sobre las actividades de la otra persona.",
@@ -264,4 +263,4 @@ export default let advices_mx = [
 "Con el tiempo, déjales ver quién eres realmente, incluyendo tus peculiaridades e idiosincrasias. Esta vulnerabilidad puede resultar atractiva.",
 "Deja espacio para el misterio: No tienes que compartir todo sobre ti de una vez. Deja que aprendan más sobre ti con el tiempo.",
 
-];   
+];

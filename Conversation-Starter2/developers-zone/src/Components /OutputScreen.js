@@ -21,6 +21,22 @@ import logo from 'developers-zone/src/assets/logoGoTok.png';
 import advice_en from 'developers-zone/src/assets/advices/advice_en.js';
 import advice_de from 'developers-zone/src/assets/advices/advice_de.js';
 import advice_gr from 'developers-zone/src/assets/advices/advice_gr.js';
+import advice_fr from 'developers-zone/src/assets/advices/advice_fr.js';
+import advice_hi from 'developers-zone/src/assets/advices/advice_hi.js';
+import advice_it from 'developers-zone/src/assets/advices/advice_it.js';
+import advice_kr from 'developers-zone/src/assets/advices/advice_kr.js';
+import advice_mx from 'developers-zone/src/assets/advices/advice_mx.js';
+import advice_nl from 'developers-zone/src/assets/advices/advice_nl.js';
+import advice_pt from 'developers-zone/src/assets/advices/advice_pt.js';
+import advice_ru from 'developers-zone/src/assets/advices/advice_ru.js';
+import advice_ukr from 'developers-zone/src/assets/advices/advice_ukr.js';
+import advice_zh from 'developers-zone/src/assets/advices/advice_zh.js';
+
+
+
+
+
+
 
 
 
@@ -161,6 +177,36 @@ const OutputScreen = ({ navigation, route }) => {
           break;
         case 'gr':
           adviceList = advice_gr;
+          break;
+        case 'fr':
+          adviceList = advice_fr;
+          break;
+        case 'hi':
+          adviceList = advice_hi;
+          break;
+        case 'it':
+          adviceList = advice_it;
+          break;
+        case 'kr':
+          adviceList = advice_kr;
+          break;
+        case 'mx':
+          adviceList = advice_mx;
+          break;
+        case 'nl':
+          adviceList = advice_nl;
+          break;
+        case 'pt':
+          adviceList = advice_pt;
+          break;
+        case 'ru':
+          adviceList = advice_ru;
+          break;
+        case 'ukr':
+          adviceList = advice_ukr;
+          break;
+        case 'zh':
+          adviceList = advice_zh;
           break;
         default:
           adviceList = advice_en;
