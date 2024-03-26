@@ -31,6 +31,7 @@ import advice_pt from 'developers-zone/src/assets/advices/advice_pt.js';
 import advice_ru from 'developers-zone/src/assets/advices/advice_ru.js';
 import advice_ukr from 'developers-zone/src/assets/advices/advice_ukr.js';
 import advice_zh from 'developers-zone/src/assets/advices/advice_zh.js';
+import advice_jp from 'developers-zone/src/assets/advices/advice_jp.js';
 
 
 
@@ -207,6 +208,9 @@ const OutputScreen = ({ navigation, route }) => {
           break;
         case 'zh':
           adviceList = advice_zh;
+          break;
+        case 'jp':
+          adviceList = advice_jp;
           break;
         default:
           adviceList = advice_en;
