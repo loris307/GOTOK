@@ -38,6 +38,7 @@ const LanguageSelectionScreen = ({ navigation }) => {
         <Picker.Item label="हिन्दी" value="hi" />
         <Picker.Item label="українська" value="ukr" />
         <Picker.Item label="Nederlands" value="nl" />
+        <Picker.Item label="日本語" value="jp" />
 
         
 

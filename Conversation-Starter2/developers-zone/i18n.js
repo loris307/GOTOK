@@ -1140,6 +1140,95 @@ hi: {
   privacyPolicy: "Privacybeleid",
 },
 
+jp: {
+  //utils
+  termsOfUse: "利用規約",
+  privacyPolicy: "プライバシーポリシー",
+
+  titleOutput: "話す時間だ！",
+  titleConvPrem: "状況を説明してください",
+  titleOccasion: "機会",
+
+  //Menu
+  newChat: "新しいチャット",
+  language: "言語",
+  occasion: "機会",
+  upgrade: "プレミアムにアップグレード",
+  logout: "ログアウト",
+
+  //LanguageSelectionScreen
+  language: "言語",
+  languagebtn: "言語を設定",
+  pickerlanguageEn: "英語",
+  pickerlanguageDe: "ドイツ語",
+  pickerlanguageGr: "ギリシャ語",
+
+  //ConversationStarterPrem
+  talkingto: "話したい相手",
+  count: "人数",
+  situationPlaceHolder: "例：相手の外見の要素、活動、行動、雰囲気などを説明してください。",
+  talkingtoPlaceholder: "性別を指定してください",
+
+  charactersRemaining: "文字が残っています",
+
+  descriptionSuggestion1: "あなたの親友に話すように説明してください：",
+
+  outputStyle: "会話スタイル（オプション）",
+  sendPromptbtn: "生成",
+  age: "相手の年齢層：",
+  backToOccasion: "機会に戻る",
+
+  //ConversationStarterFree
+  example1: "例：あなたが相手について好きなことは何ですか？",
+  example2: "例：その人は今何をしていますか？",
+  example3: "例：全体の雰囲気はどうですか？",
+
+  //OccasionView
+  inputPlaceholder: "何かを入力してください...",
+  chooseLabel: "どこにいるか選択または入力してください",
+
+  //OutputScreen
+  expertAdvice: "専門家のアドバイス：",
+  generateNewBtn: "説明に戻る",
+  promptScreenCTA: "プレミアムを取得し、より成功を収めましょう",
+  renegerate: "再生成",
+  tapToCopy: "（テキストをタップしてコピー！）",
+
+  //PremiumScreen
+  premh1: "プレミアム",
+  premCTAText:"はい、月額ピザの価格で定期購読し、逃したチャンスを後悔しない生活を送りたいです",
+  premTextAndIcons1: "無制限のプロンプトと生成",
+  premTextAndIcons2: "広告なし",
+  premTextAndIcons3: "保存機能へのアクセス",
+  premTextAndIcons4: "プレミアム専門家のアドバイス",
+
+  freeCTAText:"いいえ、後悔の追加ソース付きのピザが欲しいです",
+  freeTextAndIcons1: "1日に2回の生成に限定",
+  freeTextAndIcons2: "限定的な専門家のアドバイス",
+  freeTextAndIcons3: "追加機能なし",
+
+  subscribeBtn: "購読する",
+  backhomeBtn: "ホームに戻る",
+
+  //PremiumScreenPopup
+  premPopUpH1: "今日は無料で2回試用しました",
+  premPopUpCTAText: "プレミアムサブスクリプションにアップグレード",
+
+  //Manage Account 
+  manageAccount: "アカウント管理",
+  greeting: "こんにちは",
+  subscriptionDetails: "サブスクリプションの詳細",
+  subscriptionDetails2: "現在のサブスクリプションは以下の通りです：",
+  manageSubscription: "サブスクリプションを管理",
+  updatePayment: "支払い情報を更新",
+  cancelSub: "サブスクリプションをキャンセル",
+  billingHistoryHeader: "請求履歴",
+  paymentHistory: "過去の請求書と支払いを表示",
+  legalHeader: "法的",
+  termsofService: "利用規約",
+  privacyPolicy: "プライバシーポリシー"   
+ }
+
 
 });
 
